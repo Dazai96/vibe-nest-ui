@@ -1,11 +1,11 @@
-import { Home, Users, BookOpen, User, Heart } from "lucide-react";
+import { Home, Users, BookOpen, User, Heart, UserPlus } from "lucide-react";
 import { NavLink } from "react-router-dom";
 
 const navItems = [
   { icon: Home, label: "Feed", path: "/" },
   { icon: Users, label: "Communities", path: "/communities" },
+  { icon: UserPlus, label: "Friends", path: "/friends" },
   { icon: Heart, label: "Mood", path: "/mood" },
-  { icon: BookOpen, label: "Resources", path: "/resources" },
   { icon: User, label: "Profile", path: "/profile" },
 ];
 

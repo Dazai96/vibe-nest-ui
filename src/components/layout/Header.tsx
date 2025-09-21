@@ -1,6 +1,8 @@
-import { Bell, Search, Plus, Menu, Heart } from "lucide-react";
+import { Bell, Search, Plus, Menu, Heart, Settings, Stethoscope, BarChart3 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
+import { NavLink } from "react-router-dom";
 
 export const Header = () => {
   return (
@@ -46,13 +48,71 @@ export const Header = () => {
             Post
           </Button>
 
-          <Button
-            variant="ghost"
-            size="icon"
-            className="md:hidden"
-          >
-            <Menu className="h-5 w-5" />
-          </Button>
+          {/* Desktop Menu */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" size="icon" className="hidden md:flex">
+                <Menu className="h-5 w-5" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-48">
+              <DropdownMenuItem asChild>
+                <NavLink to="/therapists" className="flex items-center gap-2">
+                  <Stethoscope className="h-4 w-4" />
+                  Find Therapists
+                </NavLink>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <NavLink to="/resources" className="flex items-center gap-2">
+                  <Plus className="h-4 w-4" />
+                  Resources
+                </NavLink>
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem asChild>
+                <NavLink to="/admin" className="flex items-center gap-2">
+                  <BarChart3 className="h-4 w-4" />
+                  Admin Dashboard
+                </NavLink>
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem asChild>
+                <NavLink to="/settings" className="flex items-center gap-2">
+                  <Settings className="h-4 w-4" />
+                  Settings
+                </NavLink>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+
+          {/* Mobile Menu */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" size="icon" className="md:hidden">
+                <Menu className="h-5 w-5" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-48">
+              <DropdownMenuItem asChild>
+                <NavLink to="/therapists" className="flex items-center gap-2">
+                  <Stethoscope className="h-4 w-4" />
+                  Find Therapists
+                </NavLink>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <NavLink to="/resources" className="flex items-center gap-2">
+                  <Plus className="h-4 w-4" />
+                  Resources
+                </NavLink>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <NavLink to="/settings" className="flex items-center gap-2">
+                  <Settings className="h-4 w-4" />
+                  Settings
+                </NavLink>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       </div>
     </header>

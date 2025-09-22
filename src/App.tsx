@@ -11,6 +11,7 @@ import { ProtectedRoute } from "@/components/layout/ProtectedRoute";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { ErrorBoundary } from "@/components/ui/error-boundary";
 import { LoadingSpinner } from "@/components/ui/skeleton-loaders";
+import { SillyFactLoader } from "@/components/ui/silly-fact-loader";
 
 // Lazy load pages for better performance
 const Feed = lazy(() => import("./pages/Feed"));
@@ -40,11 +41,12 @@ const queryClient = new QueryClient({
 });
 
 const PageLoadingFallback = () => (
-  <div className="min-h-screen flex items-center justify-center bg-background">
+  <div className="min-h-screen flex flex-col items-center justify-center bg-background">
     <div className="text-center space-y-4">
       <LoadingSpinner size="lg" />
-      <p className="text-muted-foreground">Loading...</p>
+      <p className="text-muted-foreground">Loading awesome content...</p>
     </div>
+    <SillyFactLoader className="mt-8" />
   </div>
 );
 

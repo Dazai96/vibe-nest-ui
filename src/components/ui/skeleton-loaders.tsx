@@ -1,4 +1,5 @@
 import { Skeleton } from "@/components/ui/skeleton";
+import { SillyFactLoader } from "./silly-fact-loader";
 
 export const PostCardSkeleton = () => (
   <div className="bg-card border border-border rounded-[var(--radius)] p-4 space-y-3 animate-pulse">
@@ -118,5 +119,15 @@ export const LoadingOverlay = ({ children }: { children: React.ReactNode }) => (
       <LoadingSpinner size="lg" />
     </div>
     {children}
+  </div>
+);
+
+export const FullPageLoader = () => (
+  <div className="min-h-screen flex flex-col items-center justify-center bg-background space-y-6">
+    <div className="text-center space-y-4">
+      <LoadingSpinner size="lg" />
+      <p className="text-muted-foreground">Loading...</p>
+    </div>
+    <SillyFactLoader className="mt-8" />
   </div>
 );

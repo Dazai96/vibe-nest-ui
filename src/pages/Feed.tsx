@@ -3,6 +3,7 @@ import { PostCard } from "@/components/posts/PostCard";
 import { MoodTracker } from "@/components/mood/MoodTracker";
 import { Button } from "@/components/ui/button";
 import { PostCardSkeleton, LoadingSpinner } from "@/components/ui/skeleton-loaders";
+import { SillyFactLoader } from "@/components/ui/silly-fact-loader";
 import { Plus, TrendingUp, Clock, Users } from "lucide-react";
 
 const samplePosts = [
@@ -123,10 +124,16 @@ export default function Feed() {
         {/* Posts Feed */}
         <div className="space-y-4">
           {isLoading ? (
-            // Loading skeletons
-            Array.from({ length: 3 }).map((_, i) => (
-              <PostCardSkeleton key={i} />
-            ))
+            <div className="space-y-6">
+              {/* Loading skeletons */}
+              {Array.from({ length: 3 }).map((_, i) => (
+                <PostCardSkeleton key={i} />
+              ))}
+              {/* Silly fact during loading */}
+              <div className="flex justify-center py-8">
+                <SillyFactLoader />
+              </div>
+            </div>
           ) : (
             samplePosts.map((post) => (
               <PostCard key={post.id} {...post} />

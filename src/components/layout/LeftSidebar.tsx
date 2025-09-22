@@ -1,4 +1,4 @@
-import { Home, Users, MessageCircle, BookOpen, UserPlus, TrendingUp } from "lucide-react";
+import { Home, Users, BarChart3, BookOpen, UserPlus, TrendingUp } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 const navItems = [
   { icon: Home, label: "Home", path: "/" },
   { icon: Users, label: "Communities", path: "/communities" },
-  { icon: MessageCircle, label: "Messages", path: "/messages" },
+  { icon: BarChart3, label: "Admin Dashboard", path: "/admin" },
   { icon: BookOpen, label: "Resources", path: "/resources" },
   { icon: UserPlus, label: "Friends", path: "/friends" },
 ];

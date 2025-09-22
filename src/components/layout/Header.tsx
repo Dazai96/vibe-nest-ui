@@ -23,7 +23,7 @@ export const Header = () => {
   const navItems = [
     { icon: Home, label: "Feed", path: "/" },
     { icon: Users, label: "Communities", path: "/communities" },
-    { icon: UserPlus, label: "Friends", path: "/friends" },
+    { icon: BarChart3, label: "Admin Dashboard", path: "/admin" },
     { icon: Heart, label: "Mood", path: "/mood" },
     { icon: User, label: "Profile", path: "/profile" },
   ];

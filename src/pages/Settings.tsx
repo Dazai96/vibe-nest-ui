@@ -6,6 +6,7 @@ import { Switch } from "@/components/ui/switch";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { 
   User, 
   Shield, 
@@ -21,7 +22,8 @@ import {
   Type,
   Volume,
   RotateCcw,
-  Save
+  Save,
+  Menu
 } from "lucide-react";
 import { useTheme } from "@/contexts/ThemeContext";
 
@@ -36,6 +38,7 @@ const settingSections = [
 
 export default function Settings() {
   const [activeSection, setActiveSection] = useState("account");
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const { theme, setTheme, colorTheme, setColorTheme, fontSize, setFontSize, highContrast, setHighContrast } = useTheme();
   const [settings, setSettings] = useState({
     anonymousPosting: false,
@@ -395,9 +398,33 @@ export default function Settings() {
     }
   };
 
+  const renderSidebarContent = () => (
+    <div className="space-y-2 p-2">
+      {settingSections.map((section) => (
+        <Button
+          key={section.id}
+          variant={activeSection === section.id ? "secondary" : "ghost"}
+          onClick={() => {
+            setActiveSection(section.id);
+            setSidebarOpen(false); // Close mobile sidebar when item is selected
+          }}
+          className="w-full justify-start gap-3 h-auto p-4 transition-smooth hover-scale"
+        >
+          <section.icon className="h-5 w-5 flex-shrink-0" />
+          <div className="text-left flex-1 min-w-0">
+            <div className="font-medium text-sm">{section.title}</div>
+            <div className="text-xs text-muted-foreground mt-1 leading-relaxed break-words">
+              {section.description}
+            </div>
+          </div>
+        </Button>
+      ))}
+    </div>
+  );
+
   return (
     <div className="min-h-screen bg-background pb-20 md:pb-8">
-      <div className="container mx-auto px-4 py-6 max-w-4xl">
+      <div className="container mx-auto px-4 py-6 max-w-6xl">
         {/* Header */}
         <div className="mb-6">
           <h1 className="text-2xl font-bold text-foreground mb-2">Settings</h1>
@@ -406,32 +433,38 @@ export default function Settings() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6">
-          {/* Settings Navigation */}
-          <Card className="md:col-span-1 p-4">
-            <div className="space-y-2">
-              {settingSections.map((section) => (
-                <Button
-                  key={section.id}
-                  variant={activeSection === section.id ? "secondary" : "ghost"}
-                  onClick={() => setActiveSection(section.id)}
-                  className="w-full justify-start gap-3 h-auto p-3 transition-smooth hover-scale"
-                >
-                  <section.icon className="h-5 w-5" />
-                  <div className="text-left">
-                    <div className="font-medium">{section.title}</div>
-                    <div className="text-xs text-muted-foreground hidden md:block">
-                      {section.description}
-                    </div>
-                  </div>
+        <div className="grid lg:grid-cols-4 gap-6">
+          {/* Mobile Settings Navigation */}
+          <div className="lg:hidden">
+            <Sheet open={sidebarOpen} onOpenChange={setSidebarOpen}>
+              <SheetTrigger asChild>
+                <Button variant="outline" className="w-full mb-4">
+                  <Menu className="h-4 w-4 mr-2" />
+                  Settings Menu
                 </Button>
-              ))}
+              </SheetTrigger>
+              <SheetContent side="left" className="w-80">
+                <div className="py-4">
+                  <h2 className="text-lg font-semibold mb-4">Settings</h2>
+                  {renderSidebarContent()}
+                </div>
+              </SheetContent>
+            </Sheet>
+          </div>
+
+          {/* Desktop Settings Navigation */}
+          <Card className="hidden lg:block lg:col-span-1 p-0 h-fit">
+            <div className="p-4 border-b">
+              <h2 className="font-semibold text-foreground">Settings</h2>
             </div>
+            {renderSidebarContent()}
           </Card>
 
           {/* Settings Content */}
-          <Card className="md:col-span-2 p-6">
-            {renderSectionContent()}
+          <Card className="lg:col-span-3 p-6">
+            <div className="animate-fade-in">
+              {renderSectionContent()}
+            </div>
             
             <Separator className="my-6" />
             

@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { Share2, Copy, Mail, MessageCircle, Users } from "lucide-react";
+import { Share2, Copy, Mail, MessageCircle, Users, Loader2 } from "lucide-react";
 
 interface InviteModalProps {
   open: boolean;
@@ -68,12 +68,15 @@ export function InviteModal({ open, onOpenChange }: InviteModalProps) {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[500px]">
+      <DialogContent className="sm:max-w-[500px] glass-panel">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <Share2 className="h-5 w-5" />
             Invite Friends to Vibenest
           </DialogTitle>
+          <DialogDescription>
+            Help your friends discover a supportive mental health community.
+          </DialogDescription>
         </DialogHeader>
         
         <div className="space-y-6">
@@ -100,7 +103,11 @@ export function InviteModal({ open, onOpenChange }: InviteModalProps) {
                 disabled={!email.trim() || isSending}
                 className="min-w-20"
               >
-                {isSending ? "Sending..." : <Mail className="h-4 w-4" />}
+                {isSending ? (
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                ) : (
+                  <Mail className="h-4 w-4" />
+                )}
               </Button>
             </div>
           </div>

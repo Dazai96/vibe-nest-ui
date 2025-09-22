@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
-import { Plus, X, Image, Hash, Eye, EyeOff } from "lucide-react";
+import { Plus, X, Image, Hash, Eye, EyeOff, Loader2 } from "lucide-react";
 
 interface PostModalProps {
   open: boolean;
@@ -57,12 +57,15 @@ export function PostModal({ open, onOpenChange }: PostModalProps) {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[600px]">
+      <DialogContent className="sm:max-w-[600px] glass-panel">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <Plus className="h-5 w-5" />
             Create a Post
           </DialogTitle>
+          <DialogDescription>
+            Share your thoughts, ask for support, or offer help to others in the community.
+          </DialogDescription>
         </DialogHeader>
         
         <div className="space-y-4">
@@ -169,9 +172,16 @@ export function PostModal({ open, onOpenChange }: PostModalProps) {
             <Button 
               onClick={handleSubmit}
               disabled={!content.trim() || isSubmitting}
-              className="min-w-20"
+              className="min-w-20 glass-button"
             >
-              {isSubmitting ? "Posting..." : "Post"}
+              {isSubmitting ? (
+                <>
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                  Posting...
+                </>
+              ) : (
+                "Post"
+              )}
             </Button>
           </div>
         </div>

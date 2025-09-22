@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { PostCard } from "@/components/posts/PostCard";
 import { MoodTracker } from "@/components/mood/MoodTracker";
 import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
+import { PostCardSkeleton, LoadingSpinner } from "@/components/ui/skeleton-loaders";
+import { Plus, TrendingUp, Clock, Users } from "lucide-react";
 
 const samplePosts = [
   {
@@ -54,10 +55,29 @@ const samplePosts = [
   }
 ];
 
-const tabs = ["Trending", "Latest", "Following"];
+const tabs = [
+  { id: "Trending", label: "Trending", icon: TrendingUp },
+  { id: "Latest", label: "Latest", icon: Clock },
+  { id: "Following", label: "Following", icon: Users },
+];
 
 export default function Feed() {
   const [activeTab, setActiveTab] = useState("Trending");
+  const [isLoading, setIsLoading] = useState(true);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
+
+  // Simulate initial load
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 1500);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const handleLoadMore = async () => {
+    setIsLoadingMore(true);
+    // Simulate loading more posts
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    setIsLoadingMore(false);
+  };
 
   return (
     <div className="min-h-screen bg-background pb-20 md:pb-8">
@@ -70,21 +90,25 @@ export default function Feed() {
         {/* Feed Tabs */}
         <div className="flex items-center justify-between mb-6">
           <div className="flex border border-border/30 rounded-[var(--radius-sm)] bg-card/50 backdrop-blur-sm p-1 shadow-sm">
-            {tabs.map((tab) => (
-              <Button
-                key={tab}
-                variant={activeTab === tab ? "secondary" : "ghost"}
-                size="sm"
-                onClick={() => setActiveTab(tab)}
-                className={`rounded-[var(--radius-sm)] transition-all duration-200 ${
-                  activeTab === tab 
-                    ? "bg-background text-foreground shadow-sm border border-border/50" 
-                    : "text-muted-foreground hover:text-foreground hover:bg-background/50"
-                }`}
-              >
-                {tab}
-              </Button>
-            ))}
+            {tabs.map((tab) => {
+              const Icon = tab.icon;
+              return (
+                <Button
+                  key={tab.id}
+                  variant={activeTab === tab.id ? "secondary" : "ghost"}
+                  size="sm"
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`rounded-[var(--radius-sm)] transition-all duration-200 ${
+                    activeTab === tab.id 
+                      ? "bg-background text-foreground shadow-sm border border-border/50" 
+                      : "text-muted-foreground hover:text-foreground hover:bg-background/50"
+                  }`}
+                >
+                  <Icon className="h-4 w-4 mr-2" />
+                  {tab.label}
+                </Button>
+              );
+            })}
           </div>
 
           <Button
@@ -98,15 +122,34 @@ export default function Feed() {
 
         {/* Posts Feed */}
         <div className="space-y-4">
-          {samplePosts.map((post) => (
-            <PostCard key={post.id} {...post} />
-          ))}
+          {isLoading ? (
+            // Loading skeletons
+            Array.from({ length: 3 }).map((_, i) => (
+              <PostCardSkeleton key={i} />
+            ))
+          ) : (
+            samplePosts.map((post) => (
+              <PostCard key={post.id} {...post} />
+            ))
+          )}
         </div>
 
         {/* Load More */}
         <div className="mt-8 text-center">
-          <Button variant="outline" className="w-full md:w-auto">
-            Load More Posts
+          <Button 
+            variant="outline" 
+            className="w-full md:w-auto glass-button"
+            onClick={handleLoadMore}
+            disabled={isLoadingMore}
+          >
+            {isLoadingMore ? (
+              <>
+                <LoadingSpinner size="sm" />
+                <span className="ml-2">Loading more posts...</span>
+              </>
+            ) : (
+              "Load More Posts"
+            )}
           </Button>
         </div>
       </div>

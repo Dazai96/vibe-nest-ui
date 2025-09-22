@@ -91,6 +91,13 @@ All colors MUST be HSL. Flat design, no gradients.
     --sidebar-border: 220 13% 91%;
 
     --sidebar-ring: 217.2 91.2% 59.8%;
+    
+    /* Translucent Elements */
+    --glass-light: rgba(255, 255, 255, 0.1);
+    --glass-medium: rgba(255, 255, 255, 0.2);
+    --glass-strong: rgba(255, 255, 255, 0.3);
+    --backdrop-blur: blur(12px);
+    --backdrop-saturate: saturate(180%);
   }
 
   .dark {
@@ -143,6 +150,21 @@ All colors MUST be HSL. Flat design, no gradients.
     --shadow-soft: 0 2px 8px -2px hsl(215 25% 5% / 0.6);
     --shadow-card: 0 4px 12px -4px hsl(215 25% 3% / 0.7);
     --shadow-elevated: 0 8px 25px -8px hsl(215 25% 2% / 0.8);
+    
+    /* Dark Mode Sidebar */
+    --sidebar-background: 215 25% 8%;
+    --sidebar-foreground: 210 20% 95%;
+    --sidebar-primary: 186 85% 50%;
+    --sidebar-primary-foreground: 215 25% 8%;
+    --sidebar-accent: 215 20% 15%;
+    --sidebar-accent-foreground: 210 20% 95%;
+    --sidebar-border: 215 20% 20%;
+    --sidebar-ring: 186 85% 50%;
+    
+    /* Dark Mode Translucent Elements */
+    --glass-light: rgba(0, 0, 0, 0.1);
+    --glass-medium: rgba(0, 0, 0, 0.2);
+    --glass-strong: rgba(0, 0, 0, 0.3);
   }
 
   /* Theme Variants */
@@ -310,6 +332,22 @@ All colors MUST be HSL. Flat design, no gradients.
   
   .card-soft {
     @apply bg-card shadow-[var(--shadow-soft)] border border-border;
+  }
+
+  .card-glass {
+    @apply border border-white/10 rounded-lg backdrop-blur-md bg-gradient-to-br from-white/5 to-white/10;
+  }
+
+  .glass-panel {
+    @apply bg-white/5 backdrop-blur-md border border-white/10 rounded-lg;
+  }
+
+  .translucent-overlay {
+    @apply bg-black/20 backdrop-blur-sm;
+  }
+
+  .glass-button {
+    @apply bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white transition-all duration-200;
   }
 
   .card-content-spacing {

@@ -25,7 +25,7 @@ const moodData = [
 
 export function LeftSidebar() {
   return (
-    <aside className="w-64 xl:w-72 bg-sidebar border-r border-sidebar-border p-4 lg:p-6 space-y-6 overflow-y-auto">
+    <aside className="w-64 xl:w-72 bg-sidebar/95 backdrop-blur-md border-r border-sidebar-border p-4 lg:p-6 space-y-6 overflow-y-auto">
       {/* Navigation */}
       <Card className="card-soft">
         <CardHeader className="card-header-spacing">

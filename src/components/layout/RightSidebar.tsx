@@ -33,7 +33,7 @@ export function RightSidebar() {
   const todaysTip = wellnessTips[Math.floor(Math.random() * wellnessTips.length)];
 
   return (
-    <aside className="w-80 xl:w-96 bg-sidebar border-l border-sidebar-border p-4 lg:p-6 space-y-6 overflow-y-auto">
+    <aside className="w-80 xl:w-96 bg-sidebar/95 backdrop-blur-md border-l border-sidebar-border p-4 lg:p-6 space-y-6 overflow-y-auto">
       {/* Friend Suggestions */}
       <Card className="card-soft">
         <CardHeader className="card-header-spacing">

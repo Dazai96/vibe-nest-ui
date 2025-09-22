@@ -3,6 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { 
   Search, 
   UserPlus, 
@@ -19,7 +20,7 @@ const friends = [
   {
     id: 1,
     name: "Maya Chen",
-    avatar: "MC",
+    avatar: "/avatars/person2.jpg",
     status: "online",
     lastSeen: "Active now",
     mood: "happy",
@@ -31,7 +32,7 @@ const friends = [
   {
     id: 2,
     name: "Alex Rodriguez",
-    avatar: "AR",
+    avatar: "/avatars/person5.jpg",
     status: "offline",
     lastSeen: "Last seen 1h ago",
     mood: "calm",
@@ -43,7 +44,7 @@ const friends = [
   {
     id: 3,
     name: "Jordan Kim",
-    avatar: "JK",
+    avatar: "/avatars/person6.jpg",
     status: "online",
     lastSeen: "Active now",
     mood: "anxious",
@@ -55,9 +56,9 @@ const friends = [
 ];
 
 const suggestedFriends = [
-  { id: 4, name: "Sam Parker", avatar: "SP", mutualFriends: 3, reason: "From Anxiety Warriors community" },
-  { id: 5, name: "Taylor Swift", avatar: "TS", mutualFriends: 1, reason: "Similar mood patterns" },
-  { id: 6, name: "Casey Johnson", avatar: "CJ", mutualFriends: 5, reason: "Active in Sleep Better community" },
+  { id: 4, name: "Sam Parker", avatar: "/avatars/person8.jpg", mutualFriends: 3, reason: "From Anxiety Warriors community" },
+  { id: 5, name: "Taylor Swift", avatar: "/avatars/person9.jpg", mutualFriends: 1, reason: "Similar mood patterns" },
+  { id: 6, name: "Casey Johnson", avatar: "/avatars/person10.jpg", mutualFriends: 5, reason: "Active in Sleep Better community" },
 ];
 
 const wellnessReminders = [
@@ -138,11 +139,10 @@ export default function Friends() {
                     }`}
                   >
                     <div className="relative">
-                      <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
-                        <span className="text-sm font-medium text-primary-foreground">
-                          {friend.avatar}
-                        </span>
-                      </div>
+                      <Avatar className="w-10 h-10">
+                        <AvatarImage src={friend.avatar} alt={friend.name} />
+                        <AvatarFallback>{friend.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
+                      </Avatar>
                       <div className={`absolute -bottom-1 -right-1 w-4 h-4 rounded-full ${friend.moodColor} border-2 border-background flex items-center justify-center`}>
                         <span className="text-xs">{getMoodEmoji(friend.mood)}</span>
                       </div>
@@ -174,11 +174,10 @@ export default function Friends() {
                 {suggestedFriends.map((person) => (
                   <div key={person.id} className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center">
-                        <span className="text-sm font-medium text-muted-foreground">
-                          {person.avatar}
-                        </span>
-                      </div>
+                      <Avatar className="w-8 h-8">
+                        <AvatarImage src={person.avatar} alt={person.name} />
+                        <AvatarFallback>{person.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
+                      </Avatar>
                       <div>
                         <p className="font-medium text-foreground text-sm">{person.name}</p>
                         <p className="text-xs text-muted-foreground">{person.reason}</p>
@@ -202,11 +201,10 @@ export default function Friends() {
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
                       <div className="relative">
-                        <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
-                          <span className="text-sm font-medium text-primary-foreground">
-                            {selectedFriendData.avatar}
-                          </span>
-                        </div>
+                        <Avatar className="w-10 h-10">
+                          <AvatarImage src={selectedFriendData.avatar} alt={selectedFriendData.name} />
+                          <AvatarFallback>{selectedFriendData.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
+                        </Avatar>
                         <div className={`absolute -bottom-1 -right-1 w-4 h-4 rounded-full ${selectedFriendData.moodColor} border-2 border-background flex items-center justify-center`}>
                           <span className="text-xs">{getMoodEmoji(selectedFriendData.mood)}</span>
                         </div>
@@ -225,11 +223,10 @@ export default function Friends() {
                 {/* Chat Messages */}
                 <div className="flex-1 p-4 space-y-4 overflow-y-auto">
                   <div className="flex gap-3">
-                    <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
-                      <span className="text-sm font-medium text-primary-foreground">
-                        {selectedFriendData.avatar}
-                      </span>
-                    </div>
+                    <Avatar className="w-8 h-8">
+                      <AvatarImage src={selectedFriendData.avatar} alt={selectedFriendData.name} />
+                      <AvatarFallback>{selectedFriendData.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
+                    </Avatar>
                     <div className="flex-1">
                       <div className="bg-muted rounded-[var(--radius-sm)] p-3 max-w-md">
                         <p className="text-sm text-foreground">{selectedFriendData.lastMessage}</p>

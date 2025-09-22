@@ -6,16 +6,16 @@ import { Badge } from "@/components/ui/badge";
 
 // Mock data
 const friendSuggestions = [
-  { id: 1, name: "Sarah Chen", avatar: "/placeholder.svg", mutualFriends: 5 },
-  { id: 2, name: "Alex Rivera", avatar: "/placeholder.svg", mutualFriends: 3 },
-  { id: 3, name: "Jordan Kim", avatar: "/placeholder.svg", mutualFriends: 7 },
+  { id: 1, name: "Sarah Chen", avatar: "/avatars/person4.jpg", mutualFriends: 5 },
+  { id: 2, name: "Alex Rivera", avatar: "/avatars/person3.jpg", mutualFriends: 3 },
+  { id: 3, name: "Jordan Kim", avatar: "/avatars/person6.jpg", mutualFriends: 7 },
 ];
 
 const leaderboard = [
-  { id: 1, name: "Emma Watson", points: 2450, avatar: "/placeholder.svg" },
-  { id: 2, name: "David Lee", points: 2200, avatar: "/placeholder.svg" },
-  { id: 3, name: "Maya Patel", points: 1950, avatar: "/placeholder.svg" },
-  { id: 4, name: "Chris Taylor", points: 1800, avatar: "/placeholder.svg" },
+  { id: 1, name: "Emma Watson", points: 2450, avatar: "/avatars/person2.jpg" },
+  { id: 2, name: "David Lee", points: 2200, avatar: "/avatars/person5.jpg" },
+  { id: 3, name: "Maya Patel", points: 1950, avatar: "/avatars/person9.jpg" },
+  { id: 4, name: "Chris Taylor", points: 1800, avatar: "/avatars/person7.jpg" },
 ];
 
 const wellnessTips = [

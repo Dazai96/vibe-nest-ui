@@ -1,13 +1,20 @@
-import { Bell, Search, Plus, Menu, Heart, Settings, Stethoscope, BarChart3, User, LogOut, Home, Users, UserPlus } from "lucide-react";
+import { useState } from "react";
+import { Bell, Search, Plus, Menu, Heart, Settings, Stethoscope, BarChart3, User, LogOut, Home, Users, UserPlus, Share2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
+import { NotificationModal } from "@/components/ui/notification-modal";
+import { PostModal } from "@/components/ui/post-modal";
+import { InviteModal } from "@/components/ui/invite-modal";
 
 export const Header = () => {
   const { signOut, user } = useAuth();
+  const [notificationOpen, setNotificationOpen] = useState(false);
+  const [postOpen, setPostOpen] = useState(false);
+  const [inviteOpen, setInviteOpen] = useState(false);
 
   const handleSignOut = async () => {
     await signOut();
@@ -45,12 +52,12 @@ export const Header = () => {
             </DropdownMenuContent>
           </DropdownMenu>
 
-          <div className="flex items-center gap-2">
+          <NavLink to="/" className="flex items-center gap-2 hover-scale transition-smooth">
             <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-primary">
               <Heart className="h-6 w-6 text-primary-foreground fill-current" />
             </div>
             <h1 className="text-xl font-bold text-foreground">Vibenest</h1>
-          </div>
+          </NavLink>
         </div>
 
         {/* Search Bar - Hidden on Mobile */}
@@ -69,7 +76,8 @@ export const Header = () => {
           <Button
             variant="ghost"
             size="icon"
-            className="relative"
+            className="relative hover-scale"
+            onClick={() => setNotificationOpen(true)}
           >
             <Bell className="h-5 w-5" />
             <span className="absolute -top-1 -right-1 h-3 w-3 rounded-full bg-destructive border-2 border-background"></span>
@@ -77,7 +85,8 @@ export const Header = () => {
           
           <Button
             size="sm"
-            className="hidden sm:flex items-center gap-2 bg-primary hover:bg-[hsl(var(--primary-hover))] text-primary-foreground rounded-[var(--radius-sm)]"
+            className="hidden sm:flex items-center gap-2 bg-primary hover:bg-[hsl(var(--primary-hover))] text-primary-foreground rounded-[var(--radius-sm)] hover-scale"
+            onClick={() => setPostOpen(true)}
           >
             <Plus className="h-4 w-4" />
             Post
@@ -86,11 +95,14 @@ export const Header = () => {
           {/* Profile Menu */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="relative h-8 w-8 rounded-full">
+              <Button variant="ghost" className="relative h-8 w-8 rounded-full hover-scale">
                 <Avatar className="h-8 w-8">
-                  <AvatarImage src="/avatars/person1.jpg" alt={user?.email || 'User'} />
+                  <AvatarImage 
+                    src={user?.user_metadata?.avatar_url || user?.user_metadata?.picture || "/avatars/person1.jpg"} 
+                    alt={user?.user_metadata?.full_name || user?.email || 'User'} 
+                  />
                   <AvatarFallback>
-                    {user?.email?.[0].toUpperCase() || 'U'}
+                    {(user?.user_metadata?.full_name?.[0] || user?.email?.[0] || 'U').toUpperCase()}
                   </AvatarFallback>
                 </Avatar>
               </Button>
@@ -128,6 +140,10 @@ export const Header = () => {
                   Settings
                 </NavLink>
               </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setInviteOpen(true)}>
+                <Share2 className="mr-2 h-4 w-4" />
+                Invite Friends
+              </DropdownMenuItem>
               <DropdownMenuItem onClick={handleSignOut}>
                 <LogOut className="mr-2 h-4 w-4" />
                 Log out
@@ -136,6 +152,11 @@ export const Header = () => {
           </DropdownMenu>
         </div>
       </div>
+      
+      {/* Modals */}
+      <NotificationModal open={notificationOpen} onOpenChange={setNotificationOpen} />
+      <PostModal open={postOpen} onOpenChange={setPostOpen} />
+      <InviteModal open={inviteOpen} onOpenChange={setInviteOpen} />
     </header>
   );
 };

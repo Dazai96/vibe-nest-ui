@@ -275,12 +275,17 @@ All colors MUST be HSL. Flat design, no gradients.
 
 @layer base {
   * {
-    @apply border-border;
+    @apply border-border transition-colors duration-200;
   }
 
   body {
-    @apply bg-background text-foreground antialiased;
+    @apply bg-background text-foreground antialiased transition-colors duration-200;
     font-family: 'Inter', sans-serif;
+  }
+
+  /* Ensure all UI components have smooth transitions */
+  .card-soft, .card-elevated {
+    @apply transition-colors duration-200;
   }
 }
 

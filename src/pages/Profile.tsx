@@ -9,6 +9,7 @@ import { Label } from "@/components/ui/label";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Settings, User, BookOpen, Heart, Award, Edit3, Edit, Camera, Instagram, Twitter, Linkedin, MessageSquare, Globe, Save } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
 
 const userStats = [
   { label: "Posts", value: "12", icon: Edit3 },
@@ -33,16 +34,17 @@ const recentActivity = [
 
 export default function Profile() {
   const navigate = useNavigate();
+  const { user } = useAuth();
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [profile, setProfile] = useState({
-    name: "Alex Johnson",
-    bio: "Computer Science Student",
-    avatar: "/avatars/person1.jpg",
+    name: user?.user_metadata?.full_name || user?.user_metadata?.name || "User",
+    bio: "Share a bit about yourself...",
+    avatar: user?.user_metadata?.avatar_url || user?.user_metadata?.picture || "/avatars/person1.jpg",
     socialLinks: {
-      instagram: "alexj_dev",
-      twitter: "alex_codes",
-      linkedin: "alexjohnson-dev",
-      discord: "alexj#1234"
+      instagram: "",
+      twitter: "",
+      linkedin: "",
+      discord: ""
     }
   });
 

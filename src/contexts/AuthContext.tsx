@@ -36,6 +36,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         setSession(session);
         setUser(session?.user ?? null);
         setLoading(false);
+        
+        // Auto-sync Google profile data when user logs in with Google
+        if (event === 'SIGNED_IN' && session?.user) {
+          setTimeout(() => {
+            syncGoogleProfile(session.user);
+          }, 0);
+        }
       }
     );
 
@@ -48,6 +55,34 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     return () => subscription.unsubscribe();
   }, []);
+
+  const syncGoogleProfile = async (user: User) => {
+    try {
+      // Check if profile already exists
+      const { data: existingProfile } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('user_id', user.id)
+        .single();
+
+      // Only sync if profile doesn't exist or is missing Google data
+      if (!existingProfile || (!existingProfile.display_name && !existingProfile.avatar_url)) {
+        const googleData = user.user_metadata;
+        const profileData = {
+          user_id: user.id,
+          display_name: existingProfile?.display_name || googleData?.full_name || googleData?.name || '',
+          avatar_url: existingProfile?.avatar_url || googleData?.avatar_url || googleData?.picture || '',
+          updated_at: new Date().toISOString()
+        };
+
+        await supabase
+          .from('profiles')
+          .upsert(profileData, { onConflict: 'user_id' });
+      }
+    } catch (error) {
+      console.error('Error syncing Google profile:', error);
+    }
+  };
 
   const signUp = async (email: string, password: string, metadata = {}) => {
     const redirectUrl = `${window.location.origin}/onboarding`;

@@ -23,17 +23,21 @@ import {
   Volume,
   RotateCcw,
   Save,
-  Menu
+  Menu,
+  TrendingUp,
+  Clock,
+  Filter
 } from "lucide-react";
 import { useTheme } from "@/contexts/ThemeContext";
 
 const settingSections = [
-  { id: "account", title: "Account", icon: User, description: "Profile info, security, notifications" },
-  { id: "privacy", title: "Privacy", icon: Eye, description: "Anonymous posting, journal privacy" },
-  { id: "appearance", title: "Appearance", icon: Palette, description: "Dark mode, themes, customization" },
-  { id: "language", title: "Language", icon: Globe, description: "Regional support and localization" },
-  { id: "accessibility", title: "Accessibility", icon: Accessibility, description: "Text size, contrast, voice interaction" },
-  { id: "controls", title: "App Controls", icon: SettingsIcon, description: "Notifications, reminders, data management" },
+  { id: "account", title: "Account", icon: User },
+  { id: "privacy", title: "Privacy", icon: Eye },
+  { id: "appearance", title: "Appearance", icon: Palette },
+  { id: "language", title: "Language", icon: Globe },
+  { id: "accessibility", title: "Accessibility", icon: Accessibility },
+  { id: "controls", title: "App Controls", icon: SettingsIcon },
+  { id: "feed", title: "Feed Preferences", icon: SettingsIcon },
 ];
 
 export default function Settings() {
@@ -48,6 +52,12 @@ export default function Settings() {
     reminderFrequency: "daily",
     voiceInteraction: false,
     language: "en",
+    // Reddit-style feed preferences
+    postSorting: "hot",
+    feedDensity: "card",
+    hideNSFW: true,
+    hideLowVotePosts: false,
+    communityBannerColor: "teal",
   });
 
   const updateSetting = (key: string, value: any) => {
@@ -386,6 +396,119 @@ export default function Settings() {
     </div>
   );
 
+  const renderFeedSection = () => (
+    <div className="space-y-6">
+      <div>
+        <h3 className="text-lg font-semibold mb-4">Post Sorting</h3>
+        <div className="grid grid-cols-3 gap-3">
+          {[
+            { id: "hot", name: "Hot", icon: TrendingUp, description: "Popular posts" },
+            { id: "new", name: "New", icon: Clock, description: "Latest posts" },
+            { id: "top", name: "Top", icon: TrendingUp, description: "Most upvoted" },
+          ].map((option) => (
+            <Button
+              key={option.id}
+              variant={settings.postSorting === option.id ? "secondary" : "outline"}
+              onClick={() => updateSetting('postSorting', option.id)}
+              className="h-auto p-4 flex-col gap-2 transition-smooth hover-scale"
+            >
+              <option.icon className="h-5 w-5" />
+              <div className="text-center">
+                <div className="font-medium">{option.name}</div>
+                <div className="text-xs text-muted-foreground">{option.description}</div>
+              </div>
+            </Button>
+          ))}
+        </div>
+      </div>
+
+      <Separator />
+
+      <div>
+        <h3 className="text-lg font-semibold mb-4">Feed Display</h3>
+        <div className="grid grid-cols-2 gap-3">
+          <Button
+            variant={settings.feedDensity === "compact" ? "secondary" : "outline"}
+            onClick={() => updateSetting('feedDensity', 'compact')}
+            className="h-auto p-4 flex-col gap-2 transition-smooth hover-scale"
+          >
+            <div className="space-y-1">
+              <div className="h-2 w-12 bg-current rounded opacity-60"></div>
+              <div className="h-1 w-8 bg-current rounded opacity-40"></div>
+            </div>
+            <span>Compact View</span>
+          </Button>
+          <Button
+            variant={settings.feedDensity === "card" ? "secondary" : "outline"}
+            onClick={() => updateSetting('feedDensity', 'card')}
+            className="h-auto p-4 flex-col gap-2 transition-smooth hover-scale"
+          >
+            <div className="space-y-2">
+              <div className="h-3 w-12 bg-current rounded opacity-60"></div>
+              <div className="h-1 w-10 bg-current rounded opacity-40"></div>
+              <div className="h-1 w-8 bg-current rounded opacity-30"></div>
+            </div>
+            <span>Card View</span>
+          </Button>
+        </div>
+      </div>
+
+      <Separator />
+
+      <div>
+        <h3 className="text-lg font-semibold mb-4">Content Filters</h3>
+        <div className="space-y-4">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="font-medium">Hide sensitive content</p>
+              <p className="text-sm text-muted-foreground">Filter out potentially sensitive posts</p>
+            </div>
+            <Switch 
+              checked={settings.hideNSFW}
+              onCheckedChange={(checked) => updateSetting('hideNSFW', checked)}
+            />
+          </div>
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="font-medium">Hide low engagement posts</p>
+              <p className="text-sm text-muted-foreground">Filter posts with few upvotes or comments</p>
+            </div>
+            <Switch 
+              checked={settings.hideLowVotePosts}
+              onCheckedChange={(checked) => updateSetting('hideLowVotePosts', checked)}
+            />
+          </div>
+        </div>
+      </div>
+
+      <Separator />
+
+      <div>
+        <h3 className="text-lg font-semibold mb-4">Community Appearance</h3>
+        <div className="grid grid-cols-3 gap-3">
+          {[
+            { id: "teal", name: "Teal", color: "bg-[hsl(186,85%,45%)]" },
+            { id: "blue", name: "Blue", color: "bg-[hsl(220,85%,55%)]" },
+            { id: "purple", name: "Purple", color: "bg-[hsl(270,75%,60%)]" },
+            { id: "green", name: "Green", color: "bg-[hsl(142,65%,50%)]" },
+            { id: "orange", name: "Orange", color: "bg-[hsl(20,85%,55%)]" },
+            { id: "pink", name: "Pink", color: "bg-[hsl(330,50%,65%)]" },
+          ].map((color) => (
+            <Button
+              key={color.id}
+              variant={settings.communityBannerColor === color.id ? "secondary" : "outline"}
+              onClick={() => updateSetting('communityBannerColor', color.id)}
+              className="h-auto p-4 flex-col gap-2 transition-smooth hover-scale"
+            >
+              <div className={`w-8 h-8 rounded-full ${color.color}`}></div>
+              <span>{color.name}</span>
+            </Button>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+
   const renderSectionContent = () => {
     switch (activeSection) {
       case "account": return renderAccountSection();
@@ -394,29 +517,25 @@ export default function Settings() {
       case "language": return renderLanguageSection();
       case "accessibility": return renderAccessibilitySection();
       case "controls": return renderControlsSection();
+      case "feed": return renderFeedSection();
       default: return renderAccountSection();
     }
   };
 
   const renderSidebarContent = () => (
-    <div className="space-y-2 p-2">
+    <div className="space-y-1 p-2">
       {settingSections.map((section) => (
         <Button
           key={section.id}
           variant={activeSection === section.id ? "secondary" : "ghost"}
           onClick={() => {
             setActiveSection(section.id);
-            setSidebarOpen(false); // Close mobile sidebar when item is selected
+            setSidebarOpen(false);
           }}
-          className="w-full justify-start gap-3 h-auto p-4 transition-smooth hover-scale text-left"
+          className="w-full justify-start gap-3 h-auto py-3 px-4 transition-smooth hover-scale"
         >
           <section.icon className="h-5 w-5 flex-shrink-0" />
-          <div className="min-w-0 flex-1">
-            <div className="font-medium text-sm truncate">{section.title}</div>
-            <div className="text-xs text-muted-foreground mt-1 leading-relaxed break-words">
-              {section.description}
-            </div>
-          </div>
+          <span className="font-medium">{section.title}</span>
         </Button>
       ))}
     </div>

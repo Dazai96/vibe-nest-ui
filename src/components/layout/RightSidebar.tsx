@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
+import { NavLink } from "react-router-dom";
 
 // Mock data
 const friendSuggestions = [
@@ -96,9 +97,11 @@ export function RightSidebar() {
               )}
             </div>
           ))}
-          <Button variant="ghost" size="sm" className="w-full justify-between text-xs hover-scale">
-            <span>View full leaderboard</span>
-            <ChevronRight className="h-3 w-3 flex-shrink-0" />
+          <Button variant="ghost" size="sm" className="w-full justify-between text-xs hover-scale" asChild>
+            <NavLink to="/leaderboard">
+              <span>View full leaderboard</span>
+              <ChevronRight className="h-3 w-3 flex-shrink-0" />
+            </NavLink>
           </Button>
         </CardContent>
       </Card>

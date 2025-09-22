@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { NavLink } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { 
   Trophy, 
@@ -17,7 +18,11 @@ import {
   Star,
   Users,
   Sparkles,
-  PartyPopper
+  PartyPopper,
+  Target,
+  Rainbow,
+  Cat,
+  Sun
 } from "lucide-react";
 
 interface LeaderboardUser {
@@ -275,7 +280,7 @@ export default function Leaderboard() {
       </Card>
 
       <Tabs value={activeTab} onValueChange={setActiveTab}>
-        <TabsList className="grid w-full grid-cols-4">
+        <TabsList className="grid w-full grid-cols-5">
           <TabsTrigger value="posts" className="flex items-center gap-2">
             <MessageCircle className="h-4 w-4" />
             Posts
@@ -291,6 +296,10 @@ export default function Leaderboard() {
           <TabsTrigger value="achievements" className="flex items-center gap-2">
             <Star className="h-4 w-4" />
             Achievements
+          </TabsTrigger>
+          <TabsTrigger value="missions" className="flex items-center gap-2">
+            <Trophy className="h-4 w-4" />
+            Missions
           </TabsTrigger>
         </TabsList>
 
@@ -324,6 +333,78 @@ export default function Leaderboard() {
             metric="achievements_count"
             icon={<Star className="h-4 w-4" />}
           />
+        </TabsContent>
+
+        <TabsContent value="missions" className="mt-6">
+          <div className="grid gap-4">
+            <Card className="card-soft animate-fade-in">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Target className="h-5 w-5 text-primary animate-bounce" />
+                  Quick Mission Challenge
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="text-center p-6 bg-gradient-to-r from-primary/10 to-accent/10 rounded-lg">
+                  <PartyPopper className="h-12 w-12 mx-auto text-primary mb-4 animate-bounce" />
+                  <h3 className="text-lg font-semibold mb-2">Ready for Some Silly Wellness?</h3>
+                  <p className="text-muted-foreground mb-4">
+                    Complete fun missions to boost your leaderboard position AND your mental health!
+                  </p>
+                  <Button className="bg-primary hover:bg-[hsl(var(--primary-hover))] text-primary-foreground animate-pulse" asChild>
+                    <NavLink to="/missions">
+                      <Sparkles className="h-4 w-4 mr-2" />
+                      Start Silly Missions
+                    </NavLink>
+                  </Button>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="p-4 bg-muted/50 rounded-lg animate-fade-in" style={{ animationDelay: '100ms' }}>
+                    <h4 className="font-medium flex items-center gap-2 mb-2">
+                      <Rainbow className="h-4 w-4 animate-bounce" />
+                      Happy Dance Master
+                    </h4>
+                    <p className="text-sm text-muted-foreground">Dance for 30 seconds daily - science says it releases happiness chemicals!</p>
+                    <Badge variant="outline" className="mt-2">+35 points</Badge>
+                  </div>
+                  
+                  <div className="p-4 bg-muted/50 rounded-lg animate-fade-in" style={{ animationDelay: '200ms' }}>
+                    <h4 className="font-medium flex items-center gap-2 mb-2">
+                      <Cat className="h-4 w-4 animate-float" />
+                      Professional Cat Watcher
+                    </h4>
+                    <p className="text-sm text-muted-foreground">Watch cat videos for 5 minutes - reduces stress by 68%!</p>
+                    <Badge variant="outline" className="mt-2">+25 points</Badge>
+                  </div>
+
+                  <div className="p-4 bg-muted/50 rounded-lg animate-fade-in" style={{ animationDelay: '300ms' }}>
+                    <h4 className="font-medium flex items-center gap-2 mb-2">
+                      <Sparkles className="h-4 w-4 animate-pulse" />
+                      Compliment Ninja
+                    </h4>
+                    <p className="text-sm text-muted-foreground">Give 10 genuine compliments - activates the same brain regions as money!</p>
+                    <Badge variant="outline" className="mt-2">+50 points</Badge>
+                  </div>
+
+                  <div className="p-4 bg-muted/50 rounded-lg animate-fade-in" style={{ animationDelay: '400ms' }}>
+                    <h4 className="font-medium flex items-center gap-2 mb-2">
+                      <Sun className="h-4 w-4 animate-spin" />
+                      Sunshine Society Member
+                    </h4>
+                    <p className="text-sm text-muted-foreground">Get 10 minutes of sunlight daily - boosts serotonin naturally!</p>
+                    <Badge variant="outline" className="mt-2">+40 points</Badge>
+                  </div>
+                </div>
+
+                <div className="text-center">
+                  <p className="text-xs text-muted-foreground italic">
+                    💡 All missions are backed by real mental health science but designed to be ridiculously fun!
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
         </TabsContent>
       </Tabs>
 

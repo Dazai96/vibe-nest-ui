@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { Bell, Search, Plus, Menu, Heart, Settings, Stethoscope, BarChart3, User, LogOut, Home, Users, UserPlus, Share2 } from "lucide-react";
+import { Bell, Search, Plus, Menu, Heart, Settings, Stethoscope, BarChart3, User, LogOut, Home, Users, UserPlus, Share2, Star, Lightbulb, Trophy } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator, DropdownMenuLabel } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
@@ -107,7 +107,40 @@ export const Header = () => {
                 </Avatar>
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-48">
+            <DropdownMenuContent align="end" className="w-56 bg-card border border-border shadow-lg z-50">
+              {/* Mobile-only Right Sidebar Access */}
+              <div className="md:hidden">
+                <DropdownMenuLabel className="text-xs font-medium text-muted-foreground">
+                  Community
+                </DropdownMenuLabel>
+                <DropdownMenuItem asChild>
+                  <NavLink to="/friends" className="flex items-center gap-2">
+                    <UserPlus className="h-4 w-4" />
+                    Friend Suggestions
+                  </NavLink>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <NavLink to="/leaderboard" className="flex items-center gap-2">
+                    <Star className="h-4 w-4" />
+                    Top Helpers
+                  </NavLink>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <NavLink to="/missions" className="flex items-center gap-2">
+                    <Trophy className="h-4 w-4" />
+                    Wellness Missions
+                  </NavLink>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <NavLink to="/resources" className="flex items-center gap-2">
+                    <Lightbulb className="h-4 w-4" />
+                    Daily Tips
+                  </NavLink>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+              </div>
+
+              {/* Regular Menu Items */}
               <DropdownMenuItem asChild>
                 <NavLink to="/profile" className="flex items-center gap-2">
                   <User className="h-4 w-4" />

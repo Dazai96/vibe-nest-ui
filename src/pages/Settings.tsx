@@ -23,6 +23,7 @@ import {
   Volume,
   RotateCcw,
   Save,
+  Sparkles,
   Menu,
   TrendingUp,
   Clock,
@@ -594,6 +595,20 @@ export default function Settings() {
               </Button>
             </div>
           </Card>
+        </div>
+      </div>
+      
+      {/* Footer */}
+      <div className="mt-12 pt-8 border-t border-border">
+        <div className="text-center">
+          <p className="text-sm text-muted-foreground animate-fade-in">
+            Developed by Stark from team clarity X, and vibenest v1 "aurora"
+          </p>
+          <div className="flex items-center justify-center gap-2 mt-2">
+            <Sparkles className="h-4 w-4 text-primary animate-pulse" />
+            <span className="text-xs text-muted-foreground">Made with ❤️ for mental wellness</span>
+            <Sparkles className="h-4 w-4 text-primary animate-pulse" />
+          </div>
         </div>
       </div>
     </div>

@@ -15,7 +15,9 @@ import {
   TrendingUp,
   Crown,
   Star,
-  Users
+  Users,
+  Sparkles,
+  PartyPopper
 } from "lucide-react";
 
 interface LeaderboardUser {
@@ -135,11 +137,11 @@ export default function Leaderboard() {
   const getRankIcon = (rank: number) => {
     switch (rank) {
       case 1:
-        return <Crown className="h-5 w-5 text-yellow-500" />;
+        return <Crown className="h-5 w-5 text-yellow-500 animate-bounce" />;
       case 2:
-        return <Medal className="h-5 w-5 text-gray-400" />;
+        return <Medal className="h-5 w-5 text-gray-400 animate-pulse" />;
       case 3:
-        return <Award className="h-5 w-5 text-amber-600" />;
+        return <Award className="h-5 w-5 text-amber-600 animate-float" />;
       default:
         return <span className="text-sm font-bold text-muted-foreground">#{rank}</span>;
     }
@@ -148,11 +150,15 @@ export default function Leaderboard() {
   const getRankBadge = (rank: number) => {
     switch (rank) {
       case 1:
-        return <Badge className="bg-yellow-500 text-white">🥇 Champion</Badge>;
+        return (
+          <Badge className="bg-yellow-500 text-white animate-pulse">
+            🥇 Champion <PartyPopper className="h-3 w-3 ml-1 inline animate-bounce" />
+          </Badge>
+        );
       case 2:
-        return <Badge className="bg-gray-400 text-white">🥈 Expert</Badge>;
+        return <Badge className="bg-gray-400 text-white animate-shimmer">🥈 Expert</Badge>;
       case 3:
-        return <Badge className="bg-amber-600 text-white">🥉 Supporter</Badge>;
+        return <Badge className="bg-amber-600 text-white animate-float">🥉 Supporter</Badge>;
       default:
         return null;
     }
@@ -169,9 +175,9 @@ export default function Leaderboard() {
         const value = user[metric];
         
         return (
-          <Card key={user.id} className={`card-soft transition-all hover:shadow-md ${
-            rank <= 3 ? 'ring-2 ring-primary/20' : ''
-          }`}>
+          <Card key={user.id} className={`card-soft transition-all hover:shadow-md hover-scale animate-fade-in ${
+            rank <= 3 ? 'ring-2 ring-primary/20 animate-pulse-gentle' : ''
+          }`} style={{ animationDelay: `${index * 100}ms` }}>
             <CardContent className="p-4">
               <div className="flex items-center gap-4">
                 <div className="flex items-center justify-center w-10 h-10">
@@ -226,10 +232,11 @@ export default function Leaderboard() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-6 space-y-6">
+    <div className="max-w-4xl mx-auto p-6 space-y-6 animate-fade-in">
       <div className="flex items-center gap-3">
-        <Trophy className="h-6 w-6 text-primary" />
+        <Trophy className="h-6 w-6 text-primary animate-bounce" />
         <h1 className="text-2xl font-bold text-foreground">Community Leaderboard</h1>
+        <Sparkles className="h-5 w-5 text-yellow-500 animate-pulse" />
       </div>
 
       <Card className="card-soft">

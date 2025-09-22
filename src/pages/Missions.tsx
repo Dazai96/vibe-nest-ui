@@ -19,7 +19,15 @@ import {
   Star,
   CheckCircle,
   Gift,
-  Zap
+  Zap,
+  Coffee,
+  Smile,
+  Sun,
+  TreePine,
+  Cat,
+  Rainbow,
+  Sparkles,
+  PartyPopper
 } from "lucide-react";
 
 interface Mission {
@@ -39,6 +47,7 @@ interface Mission {
   completed: boolean;
   progress: number;
   deadline?: string;
+  funFact?: string;
 }
 
 interface Achievement {
@@ -60,106 +69,144 @@ export default function Missions() {
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("active");
 
-  // Mock data for missions
+  // Silly but good mental health missions
   const mockMissions: Mission[] = [
     {
       id: "1",
-      title: "Mood Tracker Beginner",
-      description: "Log your mood for 7 consecutive days",
-      category: "wellness",
+      title: "The Happy Dance Master",
+      description: "Do a silly 30-second dance every morning for 7 days (yes, even if no one's watching!)",
+      category: "movement",
       difficulty: "easy",
-      points: 25,
+      points: 35,
       duration_days: 7,
       requirements: [
-        { type: "mood_entries", target: 7, current: 3 }
+        { type: "daily_dances", target: 7, current: 3 }
       ],
-      icon: <Heart className="h-5 w-5" />,
+      icon: <Rainbow className="h-5 w-5 animate-bounce" />,
       completed: false,
-      progress: 43
+      progress: 43,
+      funFact: "Dancing releases endorphins - your brain's natural happiness chemicals! 💃"
     },
     {
       id: "2", 
-      title: "Community Helper",
-      description: "Get 10 helpful votes on your posts and comments",
-      category: "community",
+      title: "Compliment Ninja",
+      description: "Give genuine compliments to 10 different people (including yourself in the mirror!)",
+      category: "kindness",
       difficulty: "medium",
       points: 50,
       duration_days: 14,
       requirements: [
-        { type: "helpful_votes", target: 10, current: 6 }
+        { type: "compliments_given", target: 10, current: 6 }
       ],
-      icon: <Users className="h-5 w-5" />,
+      icon: <Sparkles className="h-5 w-5 animate-pulse" />,
       completed: false,
-      progress: 60
+      progress: 60,
+      funFact: "Giving compliments activates the same brain regions as receiving money! 🧠💰"
     },
     {
       id: "3",
-      title: "Social Butterfly",
-      description: "Join 3 different support communities",
-      category: "social",
+      title: "Professional Cat Watcher",
+      description: "Watch funny cat videos for 5 minutes daily (it's science!)",
+      category: "humor",
       difficulty: "easy",
-      points: 30,
-      duration_days: 30,
+      points: 25,
+      duration_days: 7,
       requirements: [
-        { type: "communities_joined", target: 3, current: 1 }
+        { type: "cat_videos_watched", target: 7, current: 2 }
       ],
-      icon: <MessageCircle className="h-5 w-5" />,
+      icon: <Cat className="h-5 w-5 animate-float" />,
       completed: false,
-      progress: 33
+      progress: 29,
+      funFact: "Watching cute animals reduces cortisol levels by up to 68%! 🐱"
     },
     {
       id: "4",
-      title: "Wellness Warrior",
-      description: "Complete 5 wellness challenges",
-      category: "wellness",
-      difficulty: "hard",
-      points: 100,
-      duration_days: 21,
+      title: "Sunshine Appreciation Society Member",
+      description: "Step outside and feel sunlight on your face for 10 minutes daily",
+      category: "nature",
+      difficulty: "easy",
+      points: 40,
+      duration_days: 10,
       requirements: [
-        { type: "challenges_completed", target: 5, current: 2 }
+        { type: "sunshine_sessions", target: 10, current: 4 }
       ],
-      icon: <Trophy className="h-5 w-5" />,
+      icon: <Sun className="h-5 w-5 animate-spin" />,
       completed: false,
-      progress: 40
+      progress: 40,
+      funFact: "Just 10 minutes of sunlight can boost serotonin production! ☀️"
     },
     {
       id: "5",
-      title: "Streak Master",
-      description: "Maintain a 14-day mood tracking streak",
-      category: "consistency",
-      difficulty: "hard",
-      points: 75,
+      title: "Giggle Investigator",
+      description: "Find something that makes you laugh out loud every day for 2 weeks",
+      category: "humor",
+      difficulty: "medium",
+      points: 60,
       duration_days: 14,
       requirements: [
-        { type: "mood_streak", target: 14, current: 8 }
+        { type: "daily_laughs", target: 14, current: 8 }
       ],
-      icon: <Flame className="h-5 w-5" />,
+      icon: <Smile className="h-5 w-5 animate-bounce" />,
       completed: false,
-      progress: 57
+      progress: 57,
+      funFact: "Laughing for 15 minutes burns the same calories as a 10-minute walk! 😂"
     },
     {
       id: "6",
-      title: "Profile Master",
-      description: "Complete your profile with all details",
-      category: "setup",
+      title: "Plant Whisperer",
+      description: "Talk to a plant (or tree) daily and tell it about your day",
+      category: "mindfulness",
+      difficulty: "easy",
+      points: 30,
+      duration_days: 7,
+      requirements: [
+        { type: "plant_conversations", target: 7, current: 5 }
+      ],
+      icon: <TreePine className="h-5 w-5 animate-pulse" />,
+      completed: false,
+      progress: 71,
+      funFact: "Talking to plants reduces stress and being around them improves air quality! 🌱"
+    },
+    {
+      id: "7",
+      title: "Gratitude Scavenger Hunter",
+      description: "Find 3 tiny things to be grateful for each day (like finding matching socks!)",
+      category: "gratitude",
+      difficulty: "easy",
+      points: 45,
+      duration_days: 10,
+      requirements: [
+        { type: "gratitude_items", target: 30, current: 18 }
+      ],
+      icon: <Heart className="h-5 w-5 animate-pulse" />,
+      completed: false,
+      progress: 60,
+      funFact: "Practicing gratitude rewires your brain for positivity in just 3 weeks! 💝"
+    },
+    {
+      id: "8",
+      title: "Silly Sock Coordinator",
+      description: "Wear mismatched or funny socks for 5 days (life's too short for boring socks!)",
+      category: "fun",
       difficulty: "easy",
       points: 20,
-      duration_days: 3,
+      duration_days: 5,
       requirements: [
-        { type: "profile_completion", target: 100, current: 85 }
+        { type: "silly_sock_days", target: 5, current: 2 }
       ],
-      icon: <Star className="h-5 w-5" />,
+      icon: <PartyPopper className="h-5 w-5 animate-bounce" />,
       completed: false,
-      progress: 85
+      progress: 40,
+      funFact: "Wearing something fun activates your brain's reward system! 🧦✨"
     }
   ];
 
   const mockAchievements: Achievement[] = [
     {
       id: "1",
-      name: "First Steps",
-      description: "Created your first post",
-      icon: "🌱",
+      name: "Happiness Rookie",
+      description: "Completed your first silly mission",
+      icon: "🌟",
       category: "milestone",
       points: 10,
       unlocked: true,
@@ -167,48 +214,66 @@ export default function Missions() {
     },
     {
       id: "2",
-      name: "Helpful Soul",
-      description: "Received 50 helpful votes",
-      icon: "❤️",
-      category: "community",
-      points: 50,
+      name: "Joy Spreader",
+      description: "Made 50 people smile",
+      icon: "😊",
+      category: "kindness",
+      points: 75,
       unlocked: true,
       unlockedAt: "2024-01-20"
     },
     {
       id: "3",
-      name: "Week Warrior",
-      description: "Logged mood for 7 consecutive days",
-      icon: "⚡",
-      category: "consistency",
-      points: 25,
+      name: "Giggle Master",
+      description: "Laughed out loud 100 times",
+      icon: "🎭",
+      category: "humor",
+      points: 100,
       unlocked: false
     },
     {
       id: "4",
-      name: "Community Leader",
-      description: "Helped 100 community members",
-      icon: "👑",
-      category: "leadership",
-      points: 200,
+      name: "Sunshine Warrior",
+      description: "Spent 200 minutes in sunlight",
+      icon: "☀️",
+      category: "nature",
+      points: 150,
       unlocked: false
     },
     {
       id: "5",
-      name: "Mindfulness Master",
-      description: "Completed 30 wellness challenges",
-      icon: "🧘",
-      category: "wellness",
-      points: 300,
+      name: "Plant Communication Expert",
+      description: "Had 50 conversations with plants",
+      icon: "🌱",
+      category: "mindfulness",
+      points: 200,
       unlocked: false
     },
     {
       id: "6",
-      name: "Friend Magnet",
-      description: "Connected with 25 peers",
-      icon: "🤝",
-      category: "social",
-      points: 75,
+      name: "Professional Cat Video Critic",
+      description: "Watched 100 cat videos for mental health",
+      icon: "😸",
+      category: "humor",
+      points: 125,
+      unlocked: false
+    },
+    {
+      id: "7",
+      name: "Sock Fashion Rebel",
+      description: "Wore silly socks for 30 days",
+      icon: "🧦",
+      category: "fun",
+      points: 80,
+      unlocked: false
+    },
+    {
+      id: "8",
+      name: "Gratitude Detective",
+      description: "Found 1000 things to be grateful for",
+      icon: "🔍",
+      category: "gratitude",
+      points: 300,
       unlocked: false
     }
   ];
@@ -230,20 +295,22 @@ export default function Missions() {
 
   const getCategoryIcon = (category: string) => {
     switch (category) {
-      case 'wellness': return <Heart className="h-4 w-4" />;
-      case 'community': return <Users className="h-4 w-4" />;
-      case 'social': return <MessageCircle className="h-4 w-4" />;
-      case 'consistency': return <Flame className="h-4 w-4" />;
-      case 'setup': return <Star className="h-4 w-4" />;
+      case 'movement': return <Rainbow className="h-4 w-4" />;
+      case 'kindness': return <Sparkles className="h-4 w-4" />;
+      case 'humor': return <Smile className="h-4 w-4" />;
+      case 'nature': return <Sun className="h-4 w-4" />;
+      case 'mindfulness': return <TreePine className="h-4 w-4" />;
+      case 'gratitude': return <Heart className="h-4 w-4" />;
+      case 'fun': return <PartyPopper className="h-4 w-4" />;
       default: return <Target className="h-4 w-4" />;
     }
   };
 
   const startMission = async (missionId: string) => {
-    // In a real app, this would update the database
+    const mission = missions.find(m => m.id === missionId);
     toast({
-      title: "Mission Started!",
-      description: "Your progress will be tracked automatically.",
+      title: "🎉 Mission Started!",
+      description: `Time to become a ${mission?.title}! Your silliness level is about to increase dramatically.`,
     });
   };
 
@@ -252,8 +319,8 @@ export default function Missions() {
     if (!mission) return;
 
     toast({
-      title: "Reward Claimed! 🎉",
-      description: `You earned ${mission.points} points!`,
+      title: "🏆 Mission Complete!",
+      description: `You earned ${mission.points} points! You're officially amazing at being silly AND healthy! 🎊`,
     });
 
     // Mark mission as completed
@@ -269,32 +336,39 @@ export default function Missions() {
   const lockedAchievements = achievements.filter(a => !a.unlocked);
 
   const MissionCard = ({ mission }: { mission: Mission }) => (
-    <Card className="card-soft hover:shadow-md transition-all">
+    <Card className="card-soft hover:shadow-md transition-all hover-scale animate-fade-in glass-panel">
       <CardContent className="p-6">
         <div className="flex items-start justify-between mb-4">
           <div className="flex items-center gap-3">
-            <div className="p-2 bg-primary/10 rounded-lg">
+            <div className="p-2 bg-primary/10 rounded-lg animate-pulse">
               {mission.icon}
             </div>
             <div>
-              <h3 className="font-semibold text-foreground">{mission.title}</h3>
+              <h3 className="font-semibold text-foreground animate-fade-in">{mission.title}</h3>
               <p className="text-sm text-muted-foreground">{mission.description}</p>
+              {mission.funFact && (
+                <p className="text-xs text-primary/80 mt-2 italic animate-pulse">
+                  💡 {mission.funFact}
+                </p>
+              )}
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <Badge variant="outline" className="flex items-center gap-1">
+            <Badge variant="outline" className="flex items-center gap-1 animate-shimmer">
               {getCategoryIcon(mission.category)}
               {mission.category}
             </Badge>
-            <div className={`w-3 h-3 rounded-full ${getDifficultyColor(mission.difficulty)}`} 
-                 title={`${mission.difficulty} difficulty`} />
+            <div 
+              className={`w-3 h-3 rounded-full ${getDifficultyColor(mission.difficulty)} animate-pulse`}
+              title={`${mission.difficulty} difficulty`} 
+            />
           </div>
         </div>
 
         <div className="space-y-3">
           <div className="flex items-center justify-between text-sm">
             <span className="text-muted-foreground">Progress</span>
-            <span className="font-medium">{mission.progress}%</span>
+            <span className="font-medium animate-bounce">{mission.progress}%</span>
           </div>
           <Progress value={mission.progress} className="h-2" />
           
@@ -313,7 +387,7 @@ export default function Missions() {
         <div className="flex items-center justify-between mt-4 pt-4 border-t border-border">
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-1 text-sm text-muted-foreground">
-              <Gift className="h-4 w-4" />
+              <Gift className="h-4 w-4 animate-bounce" />
               {mission.points} points
             </div>
             <div className="flex items-center gap-1 text-sm text-muted-foreground">
@@ -323,16 +397,16 @@ export default function Missions() {
           </div>
           
           {mission.progress === 100 ? (
-            <Button onClick={() => claimReward(mission.id)} className="bg-green-500 hover:bg-green-600">
+            <Button onClick={() => claimReward(mission.id)} className="bg-green-500 hover:bg-green-600 animate-bounce">
               <Gift className="h-4 w-4 mr-2" />
-              Claim Reward
+              Claim Reward! 🎉
             </Button>
           ) : mission.progress > 0 ? (
-            <Badge variant="secondary">In Progress</Badge>
+            <Badge variant="secondary" className="animate-pulse">In Progress</Badge>
           ) : (
-            <Button variant="outline" onClick={() => startMission(mission.id)}>
+            <Button variant="outline" onClick={() => startMission(mission.id)} className="hover-scale">
               <Zap className="h-4 w-4 mr-2" />
-              Start Mission
+              Let's Get Silly!
             </Button>
           )}
         </div>
@@ -341,12 +415,14 @@ export default function Missions() {
   );
 
   const AchievementCard = ({ achievement }: { achievement: Achievement }) => (
-    <Card className={`card-soft transition-all ${
-      achievement.unlocked ? 'border-yellow-200 bg-yellow-50/50' : 'opacity-60'
+    <Card className={`card-soft transition-all hover-scale animate-fade-in ${
+      achievement.unlocked 
+        ? 'border-yellow-200 bg-yellow-50/50 animate-pulse-gentle' 
+        : 'opacity-60 hover:opacity-80'
     }`}>
       <CardContent className="p-4">
         <div className="flex items-center gap-3">
-          <div className="text-2xl">{achievement.icon}</div>
+          <div className="text-2xl animate-bounce">{achievement.icon}</div>
           <div className="flex-1">
             <h3 className="font-semibold text-foreground">{achievement.name}</h3>
             <p className="text-sm text-muted-foreground">{achievement.description}</p>
@@ -358,14 +434,14 @@ export default function Missions() {
                 {achievement.points} points
               </span>
               {achievement.unlocked && achievement.unlockedAt && (
-                <span className="text-xs text-green-600">
+                <span className="text-xs text-green-600 animate-pulse">
                   Unlocked {new Date(achievement.unlockedAt).toLocaleDateString()}
                 </span>
               )}
             </div>
           </div>
           {achievement.unlocked && (
-            <CheckCircle className="h-5 w-5 text-green-500" />
+            <CheckCircle className="h-5 w-5 text-green-500 animate-bounce" />
           )}
         </div>
       </CardContent>
@@ -379,7 +455,7 @@ export default function Missions() {
           <div className="h-8 bg-muted rounded w-1/3"></div>
           <div className="grid gap-4">
             {[...Array(3)].map((_, i) => (
-              <div key={i} className="h-32 bg-muted rounded"></div>
+              <div key={i} className="h-32 bg-muted rounded shimmer"></div>
             ))}
           </div>
         </div>
@@ -388,60 +464,77 @@ export default function Missions() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-6 space-y-6">
+    <div className="max-w-4xl mx-auto p-6 space-y-6 animate-fade-in">
       <div className="flex items-center gap-3">
-        <Target className="h-6 w-6 text-primary" />
-        <h1 className="text-2xl font-bold text-foreground">Missions & Achievements</h1>
+        <Target className="h-6 w-6 text-primary animate-bounce" />
+        <h1 className="text-2xl font-bold text-foreground text-gradient">Silly Wellness Missions</h1>
+        <PartyPopper className="h-6 w-6 text-yellow-500 animate-bounce" />
       </div>
+
+      <Card className="card-soft bg-gradient-to-r from-primary/5 to-accent/5 animate-fade-in">
+        <CardContent className="p-4 text-center">
+          <h2 className="text-lg font-semibold mb-2 flex items-center justify-center gap-2">
+            <Sparkles className="h-5 w-5 animate-pulse" />
+            Welcome to the Silliness Science Lab!
+            <Sparkles className="h-5 w-5 animate-pulse" />
+          </h2>
+          <p className="text-muted-foreground">
+            Who says mental health has to be serious? Complete these ridiculous (but scientifically backed) missions 
+            to boost your mood, reduce stress, and have fun doing it! 🧪✨
+          </p>
+        </CardContent>
+      </Card>
 
       {/* Stats Overview */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <Card className="card-soft">
+        <Card className="card-soft animate-fade-in" style={{ animationDelay: '100ms' }}>
           <CardContent className="p-4 text-center">
-            <div className="text-2xl font-bold text-primary">{activeMissions.length}</div>
+            <div className="text-2xl font-bold text-primary animate-bounce">{activeMissions.length}</div>
             <div className="text-sm text-muted-foreground">Active Missions</div>
           </CardContent>
         </Card>
-        <Card className="card-soft">
+        <Card className="card-soft animate-fade-in" style={{ animationDelay: '200ms' }}>
           <CardContent className="p-4 text-center">
-            <div className="text-2xl font-bold text-green-500">{completedMissions.length}</div>
+            <div className="text-2xl font-bold text-green-500 animate-pulse">{completedMissions.length}</div>
             <div className="text-sm text-muted-foreground">Completed</div>
           </CardContent>
         </Card>
-        <Card className="card-soft">
+        <Card className="card-soft animate-fade-in" style={{ animationDelay: '300ms' }}>
           <CardContent className="p-4 text-center">
-            <div className="text-2xl font-bold text-yellow-500">{unlockedAchievements.length}</div>
+            <div className="text-2xl font-bold text-yellow-500 animate-bounce">{unlockedAchievements.length}</div>
             <div className="text-sm text-muted-foreground">Achievements</div>
           </CardContent>
         </Card>
-        <Card className="card-soft">
+        <Card className="card-soft animate-fade-in" style={{ animationDelay: '400ms' }}>
           <CardContent className="p-4 text-center">
-            <div className="text-2xl font-bold text-orange-500">
+            <div className="text-2xl font-bold text-orange-500 animate-pulse">
               {missions.reduce((sum, m) => sum + (m.completed ? m.points : 0), 0)}
             </div>
-            <div className="text-sm text-muted-foreground">Points Earned</div>
+            <div className="text-sm text-muted-foreground">Silliness Points</div>
           </CardContent>
         </Card>
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab}>
         <TabsList className="grid w-full grid-cols-3">
-          <TabsTrigger value="active">Active Missions</TabsTrigger>
-          <TabsTrigger value="available">Available Missions</TabsTrigger>
-          <TabsTrigger value="achievements">Achievements</TabsTrigger>
+          <TabsTrigger value="active" className="animate-fade-in">🎯 Active Missions</TabsTrigger>
+          <TabsTrigger value="available" className="animate-fade-in">✨ Available Missions</TabsTrigger>
+          <TabsTrigger value="achievements" className="animate-fade-in">🏆 Achievements</TabsTrigger>
         </TabsList>
 
         <TabsContent value="active" className="space-y-4 mt-6">
           {activeMissions.length > 0 ? (
-            activeMissions.map(mission => (
-              <MissionCard key={mission.id} mission={mission} />
+            activeMissions.map((mission, index) => (
+              <div key={mission.id} style={{ animationDelay: `${index * 100}ms` }}>
+                <MissionCard mission={mission} />
+              </div>
             ))
           ) : (
             <Card className="card-soft">
               <CardContent className="p-6 text-center">
-                <Target className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
+                <Target className="h-12 w-12 mx-auto text-muted-foreground mb-4 animate-bounce" />
                 <h3 className="font-semibold text-foreground mb-2">No Active Missions</h3>
-                <p className="text-muted-foreground">Start a new mission to begin your wellness journey!</p>
+                <p className="text-muted-foreground">Time to start being silly for your mental health! Pick a mission below! 🎪</p>
               </CardContent>
             </Card>
           )}
@@ -449,8 +542,10 @@ export default function Missions() {
 
         <TabsContent value="available" className="space-y-4 mt-6">
           <div className="grid gap-4">
-            {availableMissions.map(mission => (
-              <MissionCard key={mission.id} mission={mission} />
+            {availableMissions.map((mission, index) => (
+              <div key={mission.id} style={{ animationDelay: `${index * 100}ms` }}>
+                <MissionCard mission={mission} />
+              </div>
             ))}
           </div>
         </TabsContent>
@@ -460,12 +555,14 @@ export default function Missions() {
             {unlockedAchievements.length > 0 && (
               <div>
                 <h3 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
-                  <Trophy className="h-5 w-5 text-yellow-500" />
-                  Unlocked Achievements
+                  <Trophy className="h-5 w-5 text-yellow-500 animate-bounce" />
+                  Your Silly Accomplishments
                 </h3>
                 <div className="grid gap-3">
-                  {unlockedAchievements.map(achievement => (
-                    <AchievementCard key={achievement.id} achievement={achievement} />
+                  {unlockedAchievements.map((achievement, index) => (
+                    <div key={achievement.id} style={{ animationDelay: `${index * 100}ms` }}>
+                      <AchievementCard achievement={achievement} />
+                    </div>
                   ))}
                 </div>
               </div>
@@ -473,12 +570,14 @@ export default function Missions() {
 
             <div>
               <h3 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
-                <Star className="h-5 w-5 text-muted-foreground" />
-                Locked Achievements
+                <Star className="h-5 w-5 text-muted-foreground animate-pulse" />
+                Future Silly Goals
               </h3>
               <div className="grid gap-3">
-                {lockedAchievements.map(achievement => (
-                  <AchievementCard key={achievement.id} achievement={achievement} />
+                {lockedAchievements.map((achievement, index) => (
+                  <div key={achievement.id} style={{ animationDelay: `${index * 100}ms` }}>
+                    <AchievementCard achievement={achievement} />
+                  </div>
                 ))}
               </div>
             </div>

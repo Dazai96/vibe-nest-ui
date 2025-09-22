@@ -76,10 +76,10 @@ export default function Feed() {
                 variant={activeTab === tab ? "secondary" : "ghost"}
                 size="sm"
                 onClick={() => setActiveTab(tab)}
-                className={`rounded-[var(--radius-sm)] ${
+                className={`rounded-[var(--radius-sm)] transition-all duration-200 ${
                   activeTab === tab 
-                    ? "bg-background shadow-sm" 
-                    : "hover:bg-transparent"
+                    ? "bg-background text-foreground shadow-sm border border-border/50" 
+                    : "text-muted-foreground hover:text-foreground hover:bg-background/50"
                 }`}
               >
                 {tab}

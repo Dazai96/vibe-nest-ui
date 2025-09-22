@@ -6,8 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { ProtectedRoute } from "@/components/layout/ProtectedRoute";
-import { Header } from "@/components/layout/Header";
-import { BottomNav } from "@/components/layout/BottomNav";
+import { MainLayout } from "@/components/layout/MainLayout";
 import Feed from "./pages/Feed";
 import Communities from "./pages/Communities";
 import Mood from "./pages/Mood";
@@ -37,83 +36,65 @@ const App = () => (
                 <Route path="/onboarding" element={<Onboarding />} />
                 <Route path="/" element={
                   <ProtectedRoute>
-                    <>
-                      <Header />
+                    <MainLayout>
                       <Feed />
-                      <BottomNav />
-                    </>
+                    </MainLayout>
                   </ProtectedRoute>
                 } />
                 <Route path="/communities" element={
                   <ProtectedRoute>
-                    <>
-                      <Header />
+                    <MainLayout>
                       <Communities />
-                      <BottomNav />
-                    </>
+                    </MainLayout>
                   </ProtectedRoute>
                 } />
                 <Route path="/mood" element={
                   <ProtectedRoute>
-                    <>
-                      <Header />
+                    <MainLayout>
                       <Mood />
-                      <BottomNav />
-                    </>
+                    </MainLayout>
                   </ProtectedRoute>
                 } />
                 <Route path="/resources" element={
                   <ProtectedRoute>
-                    <>
-                      <Header />
+                    <MainLayout>
                       <Resources />
-                      <BottomNav />
-                    </>
+                    </MainLayout>
                   </ProtectedRoute>
                 } />
                 <Route path="/profile" element={
                   <ProtectedRoute>
-                    <>
-                      <Header />
+                    <MainLayout>
                       <Profile />
-                      <BottomNav />
-                    </>
+                    </MainLayout>
                   </ProtectedRoute>
                 } />
                 <Route path="/settings" element={
                   <ProtectedRoute>
-                    <>
-                      <Header />
+                    <MainLayout>
                       <Settings />
-                      <BottomNav />
-                    </>
+                    </MainLayout>
                   </ProtectedRoute>
                 } />
                 <Route path="/admin" element={
                   <ProtectedRoute>
-                    <>
-                      <Header />
+                    <MainLayout>
                       <AdminDashboard />
-                      <BottomNav />
-                    </>
+                    </MainLayout>
                   </ProtectedRoute>
                 } />
                 <Route path="/therapists" element={
                   <ProtectedRoute>
-                    <>
-                      <Header />
+                    <MainLayout>
                       <Therapists />
-                      <BottomNav />
-                    </>
+                    </MainLayout>
                   </ProtectedRoute>
                 } />
                 <Route path="/friends" element={
                   <ProtectedRoute>
-                    <>
-                      <Header />
+                    <MainLayout>
                       <Friends />
-                      <BottomNav />
-                    </>
+                    </MainLayout>
                   </ProtectedRoute>
                 } />
                 <Route path="*" element={<NotFound />} />

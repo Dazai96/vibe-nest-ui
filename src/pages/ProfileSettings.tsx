@@ -106,7 +106,7 @@ export default function ProfileSettings() {
             twitter: "",
             linkedin: "",
             discord: "",
-            ...((typeof data.social_links === 'object' && data.social_links) || {})
+            ...((typeof data.social_links === 'object' && data.social_links !== null && data.social_links) || {})
           },
           notification_preferences: {
             push: true,
@@ -114,7 +114,7 @@ export default function ProfileSettings() {
             crisis_alerts: true,
             community_updates: true,
             mood_reminders: true,
-            ...((typeof data.notification_preferences === 'object' && data.notification_preferences) || {})
+            ...((typeof data.notification_preferences === 'object' && data.notification_preferences !== null && !Array.isArray(data.notification_preferences) && data.notification_preferences) || {})
           }
         });
       }

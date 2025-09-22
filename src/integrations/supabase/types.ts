@@ -431,6 +431,7 @@ export type Database = {
           institution: string | null
           notification_preferences: Json | null
           privacy_level: string | null
+          social_links: Json | null
           updated_at: string
           user_id: string
           year_of_study: number | null
@@ -445,6 +446,7 @@ export type Database = {
           institution?: string | null
           notification_preferences?: Json | null
           privacy_level?: string | null
+          social_links?: Json | null
           updated_at?: string
           user_id: string
           year_of_study?: number | null
@@ -459,6 +461,7 @@ export type Database = {
           institution?: string | null
           notification_preferences?: Json | null
           privacy_level?: string | null
+          social_links?: Json | null
           updated_at?: string
           user_id?: string
           year_of_study?: number | null

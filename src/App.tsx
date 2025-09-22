@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { HelmetProvider, Helmet } from "react-helmet-async";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { AuthProvider } from "@/contexts/AuthContext";
+import { SubscriptionProvider } from "@/contexts/SubscriptionContext";
 import { ProtectedRoute } from "@/components/layout/ProtectedRoute";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { ErrorBoundary } from "@/components/ui/error-boundary";
@@ -28,6 +29,7 @@ const Therapists = lazy(() => import("./pages/Therapists"));
 const Friends = lazy(() => import("./pages/Friends"));
 const Auth = lazy(() => import("./pages/Auth"));
 const Onboarding = lazy(() => import("./pages/Onboarding"));
+const Subscription = lazy(() => import("./pages/Subscription"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 const queryClient = new QueryClient({
@@ -54,8 +56,9 @@ const App = () => (
   <ErrorBoundary>
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <ThemeProvider>
-          <TooltipProvider>
+        <SubscriptionProvider>
+          <ThemeProvider>
+            <TooltipProvider>
             <HelmetProvider>
               <Helmet>
                 <title>Vibenest - Mental Health Community for Students</title>
@@ -163,6 +166,13 @@ const App = () => (
                           </MainLayout>
                         </ProtectedRoute>
                       } />
+                      <Route path="/subscription" element={
+                        <ProtectedRoute>
+                          <MainLayout>
+                            <Subscription />
+                          </MainLayout>
+                        </ProtectedRoute>
+                      } />
                       <Route path="*" element={<NotFound />} />
                     </Routes>
                   </Suspense>
@@ -171,6 +181,7 @@ const App = () => (
             </HelmetProvider>
           </TooltipProvider>
         </ThemeProvider>
+        </SubscriptionProvider>
       </AuthProvider>
     </QueryClientProvider>
   </ErrorBoundary>

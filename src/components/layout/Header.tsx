@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Bell, Search, Plus, Menu, Heart, Settings, Stethoscope, BarChart3, User, LogOut, Home, Users, UserPlus, Share2, Star, Lightbulb, Trophy } from "lucide-react";
+import { Bell, Search, Plus, Menu, Settings, Stethoscope, BarChart3, User, LogOut, Home, Users, UserPlus, Share2, Star, Lightbulb, Trophy, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator, DropdownMenuLabel } from "@/components/ui/dropdown-menu";
@@ -9,6 +9,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { NotificationModal } from "@/components/ui/notification-modal";
 import { PostModal } from "@/components/ui/post-modal";
 import { InviteModal } from "@/components/ui/invite-modal";
+import Logo from "@/components/ui/Logo";
 
 export const Header = () => {
   const { signOut, user } = useAuth();
@@ -54,7 +55,7 @@ export const Header = () => {
 
           <NavLink to="/" className="flex items-center gap-2 hover-scale transition-smooth">
             <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-primary">
-              <Heart className="h-6 w-6 text-primary-foreground fill-current" />
+              <Logo size="md" className="text-primary-foreground" />
             </div>
             <h1 className="text-xl font-bold text-foreground">Vibenest</h1>
           </NavLink>

@@ -5,56 +5,55 @@ import { Button } from "@/components/ui/button";
 import { PostCardSkeleton, LoadingSpinner } from "@/components/ui/skeleton-loaders";
 import { SillyFactLoader } from "@/components/ui/silly-fact-loader";
 import { Plus, TrendingUp, Clock, Users } from "lucide-react";
+import { dataRandomizer } from "@/lib/dataRandomizer";
 
-const samplePosts = [
-  {
-    id: "1",
-    author: "Sarah M",
-    timeAgo: "2h ago",
-    title: "Anyone else feeling overwhelmed with final exams?",
-    content: "I've been studying for weeks but still feel like I'm behind. The pressure is getting to me and I'm having trouble sleeping. Would love to hear how others are coping with exam stress.",
-    tags: ["ExamStress", "StudentLife", "Anxiety"],
-    likes: 24,
-    comments: 8,
-    isLiked: false,
-    isSaved: true,
-  },
-  {
-    id: "2",
-    author: "Dr. Martinez",
-    timeAgo: "4h ago",
-    title: "5 Quick Breathing Exercises for Instant Calm",
-    content: "Here are some evidence-based breathing techniques you can use anywhere: 1) Box breathing (4-4-4-4 count) 2) 4-7-8 technique 3) Simple belly breathing. Try these during stressful moments!",
-    tags: ["MentalHealth", "BreathingExercises", "Wellness"],
-    likes: 89,
-    comments: 12,
-    isLiked: true,
-    isVerified: true,
-  },
-  {
-    id: "3",
-    author: "Anonymous",
-    isAnonymous: true,
-    timeAgo: "6h ago",
-    title: "Struggling with social anxiety in group projects",
-    content: "Every time we have group assignments, I get so anxious about speaking up or sharing my ideas. I end up doing most of the work alone just to avoid confrontation. Has anyone found ways to manage this?",
-    tags: ["SocialAnxiety", "GroupWork", "Confidence"],
-    likes: 15,
-    comments: 23,
-    isSaved: false,
-  },
-  {
-    id: "4",
-    author: "Mike Chen",
-    timeAgo: "8h ago",
-    title: "Celebrating small wins: Went to class despite feeling down",
-    content: "Yesterday was tough but I made it to all my classes. Sometimes just showing up is enough. Reminded myself that progress isn't always linear and that's okay. 🌱",
-    tags: ["SelfCare", "Progress", "Motivation"],
-    likes: 67,
-    comments: 18,
-    isLiked: true,
-  }
-];
+// Generate randomized posts
+const generateRandomPosts = () => {
+  const authors = [
+    "Sarah M", "Dr. Martinez", "Mike Chen", "Emma R", "Dr. Thompson", "Alex K",
+    "Jordan T", "Dr. Williams", "Casey L", "Riley S", "Avery M", "Quinn P"
+  ];
+  
+  const timeAgoOptions = ["2h ago", "4h ago", "6h ago", "8h ago", "12h ago", "1d ago", "2d ago", "3d ago"];
+  const tagOptions = [
+    ["ExamStress", "StudentLife", "Anxiety"],
+    ["MentalHealth", "BreathingExercises", "Wellness"],
+    ["SocialAnxiety", "GroupWork", "Confidence"],
+    ["SmallWins", "Motivation", "Gratitude"],
+    ["Meditation", "Apps", "Anxiety", "Recommendations"],
+    ["SAD", "SeasonalDepression", "MentalHealth", "Winter"],
+    ["StudyGroup", "Finals", "Collaboration", "Academic"],
+    ["Depression", "Help", "Support", "Struggling"],
+    ["Therapy", "Counseling", "ProfessionalHelp"],
+    ["SelfCare", "Wellness", "MentalHealth"],
+    ["CampusLife", "StudentSupport", "Resources"],
+    ["Recovery", "Healing", "Progress"]
+  ];
+
+  return Array.from({ length: 8 }, (_, i) => {
+    const isAnonymous = dataRandomizer.randomBoolean();
+    const isVerified = !isAnonymous && dataRandomizer.randomBoolean();
+    const { firstName, lastName } = dataRandomizer.getRandomUserNames();
+    const displayAuthor = isAnonymous ? "Anonymous" : `${firstName} ${lastName.charAt(0)}`;
+    
+    return {
+      id: (i + 1).toString(),
+      author: displayAuthor,
+      timeAgo: dataRandomizer.randomChoice(timeAgoOptions),
+      title: dataRandomizer.getRandomPostContent(),
+      content: dataRandomizer.getRandomPostContent() + " " + dataRandomizer.getRandomPostContent(),
+      tags: dataRandomizer.randomChoice(tagOptions),
+      likes: dataRandomizer.randomBetween(5, 100),
+      comments: dataRandomizer.randomBetween(2, 40),
+      isLiked: dataRandomizer.randomBoolean(),
+      isSaved: dataRandomizer.randomBoolean(),
+      isAnonymous,
+      isVerified: isVerified,
+    };
+  });
+};
+
+const samplePosts = generateRandomPosts();
 
 const tabs = [
   { id: "Trending", label: "Trending", icon: TrendingUp },

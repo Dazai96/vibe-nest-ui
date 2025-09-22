@@ -1,8 +1,9 @@
-import { Home, Users, BarChart3, BookOpen, UserPlus, TrendingUp } from "lucide-react";
+import { Home, Users, BarChart3, BookOpen, UserPlus, TrendingUp, Crown } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { dataRandomizer } from "@/lib/dataRandomizer";
 
 const navItems = [
   { icon: Home, label: "Home", path: "/" },
@@ -10,18 +11,11 @@ const navItems = [
   { icon: BarChart3, label: "Admin Dashboard", path: "/admin" },
   { icon: BookOpen, label: "Resources", path: "/resources" },
   { icon: UserPlus, label: "Friends", path: "/friends" },
+  { icon: Crown, label: "Subscription", path: "/subscription" },
 ];
 
-// Mock mood data for the line graph
-const moodData = [
-  { day: "Mon", mood: 6.5 },
-  { day: "Tue", mood: 7.2 },
-  { day: "Wed", mood: 5.8 },
-  { day: "Thu", mood: 8.1 },
-  { day: "Fri", mood: 7.9 },
-  { day: "Sat", mood: 6.3 },
-  { day: "Sun", mood: 7.6 },
-];
+// Randomized mood data for the line graph
+const moodData = dataRandomizer.getRandomMoodData();
 
 export function LeftSidebar() {
   return (

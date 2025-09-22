@@ -30,6 +30,7 @@ import {
   Filter
 } from "lucide-react";
 import { useTheme } from "@/contexts/ThemeContext";
+import GmailSync from "@/components/settings/GmailSync";
 
 const settingSections = [
   { id: "account", title: "Account", icon: User },
@@ -37,6 +38,7 @@ const settingSections = [
   { id: "appearance", title: "Appearance", icon: Palette },
   { id: "language", title: "Language", icon: Globe },
   { id: "accessibility", title: "Accessibility", icon: Accessibility },
+  { id: "integrations", title: "Integrations", icon: Globe },
   { id: "controls", title: "App Controls", icon: SettingsIcon },
   { id: "feed", title: "Feed Preferences", icon: SettingsIcon },
 ];
@@ -397,6 +399,18 @@ export default function Settings() {
     </div>
   );
 
+  const renderIntegrationsSection = () => (
+    <div className="space-y-6">
+      <div>
+        <h3 className="text-lg font-semibold mb-4">Data Integrations</h3>
+        <p className="text-muted-foreground mb-6">
+          Connect your external accounts to personalize your experience and sync data automatically.
+        </p>
+        <GmailSync />
+      </div>
+    </div>
+  );
+
   const renderFeedSection = () => (
     <div className="space-y-6">
       <div>
@@ -517,6 +531,7 @@ export default function Settings() {
       case "appearance": return renderAppearanceSection();
       case "language": return renderLanguageSection();
       case "accessibility": return renderAccessibilitySection();
+      case "integrations": return renderIntegrationsSection();
       case "controls": return renderControlsSection();
       case "feed": return renderFeedSection();
       default: return renderAccountSection();

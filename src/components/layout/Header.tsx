@@ -1,4 +1,4 @@
-import { Bell, Search, Plus, Menu, Heart, Settings, Stethoscope, BarChart3, User, LogOut } from "lucide-react";
+import { Bell, Search, Plus, Menu, Heart, Settings, Stethoscope, BarChart3, User, LogOut, Home, Users, UserPlus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
@@ -13,11 +13,38 @@ export const Header = () => {
     await signOut();
   };
 
+  const navItems = [
+    { icon: Home, label: "Feed", path: "/" },
+    { icon: Users, label: "Communities", path: "/communities" },
+    { icon: UserPlus, label: "Friends", path: "/friends" },
+    { icon: Heart, label: "Mood", path: "/mood" },
+    { icon: User, label: "Profile", path: "/profile" },
+  ];
+
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between px-4">
         {/* Logo & Brand */}
         <div className="flex items-center gap-3">
+          {/* Hamburger Menu - Desktop Only */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" size="icon" className="hidden md:flex">
+                <Menu className="h-5 w-5" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start" className="w-48">
+              {navItems.map(({ icon: Icon, label, path }) => (
+                <DropdownMenuItem key={path} asChild>
+                  <NavLink to={path} className="flex items-center gap-2">
+                    <Icon className="h-4 w-4" />
+                    {label}
+                  </NavLink>
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+
           <div className="flex items-center gap-2">
             <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-primary">
               <Heart className="h-6 w-6 text-primary-foreground fill-current" />

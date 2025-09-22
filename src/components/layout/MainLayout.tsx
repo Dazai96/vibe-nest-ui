@@ -14,12 +14,16 @@ export function MainLayout({ children }: MainLayoutProps) {
       <Header />
       
       {/* Desktop Layout with Sidebars */}
-      <div className="hidden lg:flex">
-        <LeftSidebar />
-        <main className="flex-1 min-h-[calc(100vh-4rem)]">
+      <div className="hidden lg:flex min-h-[calc(100vh-4rem)]">
+        <div className="flex-shrink-0">
+          <LeftSidebar />
+        </div>
+        <main className="flex-1 overflow-x-hidden">
           {children}
         </main>
-        <RightSidebar />
+        <div className="flex-shrink-0">
+          <RightSidebar />
+        </div>
       </div>
 
       {/* Mobile Layout */}

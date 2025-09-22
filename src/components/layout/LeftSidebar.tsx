@@ -25,13 +25,13 @@ const moodData = [
 
 export function LeftSidebar() {
   return (
-    <aside className="w-64 bg-sidebar border-r border-sidebar-border p-4 space-y-6">
+    <aside className="w-64 xl:w-72 bg-sidebar border-r border-sidebar-border p-4 lg:p-6 space-y-6 overflow-y-auto">
       {/* Navigation */}
       <Card className="card-soft">
-        <CardHeader className="pb-3">
+        <CardHeader className="card-header-spacing">
           <CardTitle className="text-sm font-medium text-sidebar-foreground">Navigation</CardTitle>
         </CardHeader>
-        <CardContent className="space-y-1">
+        <CardContent className="space-y-1 px-4 pb-4">
           {navItems.map(({ icon: Icon, label, path }) => (
             <NavLink key={path} to={path}>
               {({ isActive }) => (
@@ -39,12 +39,12 @@ export function LeftSidebar() {
                   variant="ghost"
                   size="sm"
                   className={cn(
-                    "w-full justify-start gap-3 text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
+                    "w-full justify-start gap-3 h-auto py-2.5 px-3 text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-smooth",
                     isActive && "bg-sidebar-accent text-sidebar-accent-foreground font-medium"
                   )}
                 >
-                  <Icon className="h-4 w-4" />
-                  {label}
+                  <Icon className="h-4 w-4 flex-shrink-0" />
+                  <span className="truncate">{label}</span>
                 </Button>
               )}
             </NavLink>
@@ -54,28 +54,28 @@ export function LeftSidebar() {
 
       {/* Mood Tracking Graph */}
       <Card className="card-soft">
-        <CardHeader className="pb-3">
+        <CardHeader className="card-header-spacing">
           <CardTitle className="text-sm font-medium text-sidebar-foreground flex items-center gap-2">
-            <TrendingUp className="h-4 w-4" />
-            Mood This Week
+            <TrendingUp className="h-4 w-4 flex-shrink-0" />
+            <span className="truncate">Mood This Week</span>
           </CardTitle>
         </CardHeader>
-        <CardContent>
-          <div className="space-y-2">
+        <CardContent className="px-4 pb-4">
+          <div className="space-y-3">
             <div className="flex justify-between text-xs text-muted-foreground">
               <span>Great</span>
               <span>10</span>
             </div>
             
             {/* Simple bar chart */}
-            <div className="h-32 flex items-end justify-between gap-1">
+            <div className="h-28 sm:h-32 flex items-end justify-between gap-1">
               {moodData.map((data, index) => (
                 <div key={data.day} className="flex flex-col items-center gap-1 flex-1">
                   <div
-                    className="w-full bg-primary rounded-t transition-all hover:bg-primary/80"
+                    className="w-full bg-primary rounded-t transition-all hover:bg-primary/80 min-h-[8px]"
                     style={{ height: `${(data.mood / 10) * 100}%` }}
                   />
-                  <span className="text-xs text-muted-foreground">{data.day}</span>
+                  <span className="text-xs text-muted-foreground truncate">{data.day}</span>
                 </div>
               ))}
             </div>
@@ -89,7 +89,7 @@ export function LeftSidebar() {
           <Button 
             variant="outline" 
             size="sm" 
-            className="w-full mt-3 text-xs"
+            className="w-full mt-4 text-xs hover-scale"
             asChild
           >
             <NavLink to="/mood">Track Mood</NavLink>

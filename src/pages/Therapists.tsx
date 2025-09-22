@@ -106,7 +106,7 @@ export default function Therapists() {
 
   return (
     <div className="min-h-screen bg-background pb-20 md:pb-8">
-      <div className="container mx-auto px-4 py-6 max-w-6xl">
+      <div className="page-container-wide">
         {/* Header */}
         <div className="mb-6">
           <h1 className="text-2xl font-bold text-foreground mb-2">Find a Therapist</h1>

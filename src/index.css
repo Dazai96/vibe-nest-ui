@@ -285,29 +285,50 @@ All colors MUST be HSL. Flat design, no gradients.
 }
 
 @layer components {
+  /* Consistent Container Spacing */
+  .page-container {
+    @apply container mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-8;
+  }
+
+  .page-container-narrow {
+    @apply container mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-8 max-w-2xl;
+  }
+
+  .page-container-wide {
+    @apply container mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-8 max-w-6xl;
+  }
+
   /* Card Component Variants */
   .card-elevated {
-    @apply bg-card shadow-[--shadow-card] border-0;
+    @apply bg-card shadow-[var(--shadow-card)] border-0;
   }
   
   .card-soft {
-    @apply bg-card shadow-[--shadow-soft] border border-border;
+    @apply bg-card shadow-[var(--shadow-soft)] border border-border;
+  }
+
+  .card-content-spacing {
+    @apply p-4 sm:p-6;
+  }
+
+  .card-header-spacing {
+    @apply p-4 sm:p-6 pb-3;
   }
 
   /* Button Variants */
   .btn-vibenest {
     @apply bg-primary text-primary-foreground hover:bg-[hsl(var(--primary-hover))] 
-           rounded-[--radius] px-6 py-3 font-medium transition-colors;
+           rounded-[var(--radius)] px-4 sm:px-6 py-2 sm:py-3 font-medium transition-colors;
   }
   
   .btn-secondary {
     @apply bg-secondary text-secondary-foreground hover:bg-[hsl(var(--secondary-hover))]
-           rounded-[--radius] px-6 py-3 font-medium transition-colors;
+           rounded-[var(--radius)] px-4 sm:px-6 py-2 sm:py-3 font-medium transition-colors;
   }
 
   .btn-ghost {
     @apply hover:bg-muted text-muted-foreground hover:text-foreground
-           rounded-[--radius] px-4 py-2 font-medium transition-colors;
+           rounded-[var(--radius)] px-3 sm:px-4 py-2 font-medium transition-colors;
   }
 
   /* Input Variants */

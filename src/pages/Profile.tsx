@@ -65,7 +65,7 @@ export default function Profile() {
   };
   return (
     <div className="min-h-screen bg-background pb-20 md:pb-8">
-      <div className="container mx-auto px-4 py-6 max-w-2xl">
+      <div className="page-container-narrow">
         <Card className="p-6 mb-6 animate-fade-in">
           <div className="flex items-start justify-between mb-4">
             <div className="flex items-center gap-4">

@@ -61,7 +61,7 @@ export default function Feed() {
 
   return (
     <div className="min-h-screen bg-background pb-20 md:pb-8">
-      <div className="container mx-auto px-4 py-6 max-w-2xl">
+      <div className="page-container-narrow">
         {/* Mood Tracker */}
         <div className="mb-6">
           <MoodTracker />

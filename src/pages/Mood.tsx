@@ -27,7 +27,7 @@ const insights = [
 export default function Mood() {
   return (
     <div className="min-h-screen bg-background pb-20 md:pb-8">
-      <div className="container mx-auto px-4 py-6 max-w-2xl">
+      <div className="page-container-narrow">
         {/* Header */}
         <div className="mb-6">
           <h1 className="text-2xl font-bold text-foreground mb-2">Mood Tracking</h1>

@@ -408,11 +408,11 @@ export default function Settings() {
             setActiveSection(section.id);
             setSidebarOpen(false); // Close mobile sidebar when item is selected
           }}
-          className="w-full justify-start gap-3 h-auto p-4 transition-smooth hover-scale"
+          className="w-full justify-start gap-3 h-auto p-4 transition-smooth hover-scale text-left"
         >
           <section.icon className="h-5 w-5 flex-shrink-0" />
-          <div className="text-left flex-1 min-w-0">
-            <div className="font-medium text-sm">{section.title}</div>
+          <div className="min-w-0 flex-1">
+            <div className="font-medium text-sm truncate">{section.title}</div>
             <div className="text-xs text-muted-foreground mt-1 leading-relaxed break-words">
               {section.description}
             </div>
@@ -424,7 +424,7 @@ export default function Settings() {
 
   return (
     <div className="min-h-screen bg-background pb-20 md:pb-8">
-      <div className="container mx-auto px-6 py-8 max-w-6xl">
+      <div className="page-container-wide">
         {/* Header */}
         <div className="mb-6">
           <h1 className="text-2xl font-bold text-foreground mb-2">Settings</h1>

@@ -69,7 +69,7 @@ export default function Feed() {
 
         {/* Feed Tabs */}
         <div className="flex items-center justify-between mb-6">
-          <div className="flex border border-border rounded-[var(--radius-sm)] bg-muted p-1">
+          <div className="flex border border-border/30 rounded-[var(--radius-sm)] bg-card/50 backdrop-blur-sm p-1 shadow-sm">
             {tabs.map((tab) => (
               <Button
                 key={tab}

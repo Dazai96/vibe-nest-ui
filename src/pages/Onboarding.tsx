@@ -23,16 +23,13 @@ const interests = [
   { id: 'social-anxiety', label: 'Social Connections', icon: Users },
   { id: 'sleep-health', label: 'Sleep & Rest', icon: Coffee },
   { id: 'mindfulness', label: 'Mindfulness', icon: Heart },
-  { id: 'exam-prep', label: 'Exam Preparation', icon: BookOpen },
+  { id: 'mental-health', label: 'Mental Health', icon: Heart },
 ];
 
 export default function Onboarding() {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     currentMood: '',
-    institution: '',
-    yearOfStudy: '',
-    department: '',
     selectedInterests: [] as string[],
     bio: ''
   });
@@ -61,9 +58,6 @@ export default function Onboarding() {
   const handleComplete = async () => {
     try {
       const { error } = await updateProfile({
-        institution: formData.institution,
-        year_of_study: parseInt(formData.yearOfStudy),
-        department: formData.department,
         bio: formData.bio,
         privacy_level: 'private'
       });
@@ -93,8 +87,7 @@ export default function Onboarding() {
   const canProceed = () => {
     switch (step) {
       case 1: return formData.currentMood;
-      case 2: return formData.institution && formData.yearOfStudy;
-      case 3: return formData.selectedInterests.length > 0;
+      case 2: return formData.selectedInterests.length > 0;
       default: return true;
     }
   };
@@ -104,14 +97,14 @@ export default function Onboarding() {
       <div className="w-full max-w-lg">
         {/* Progress indicator */}
         <div className="flex items-center justify-center mb-8">
-          {[1, 2, 3, 4].map((i) => (
+          {[1, 2, 3].map((i) => (
             <div key={i} className="flex items-center">
               <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
                 i <= step ? 'bg-primary text-primary-foreground' : 'bg-muted text-muted-foreground'
               }`}>
                 {i}
               </div>
-              {i < 4 && (
+              {i < 3 && (
                 <div className={`w-8 h-1 mx-2 ${
                   i < step ? 'bg-primary' : 'bg-muted'
                 }`} />
@@ -151,51 +144,6 @@ export default function Onboarding() {
           {step === 2 && (
             <>
               <CardHeader className="text-center">
-                <CardTitle>Tell us about your studies</CardTitle>
-                <p className="text-muted-foreground">This helps us personalize your experience</p>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="space-y-2">
-                  <label className="text-sm font-medium">Institution</label>
-                  <Input
-                    placeholder="University of Example"
-                    value={formData.institution}
-                    onChange={(e) => setFormData(prev => ({ ...prev, institution: e.target.value }))}
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <label className="text-sm font-medium">Year of Study</label>
-                  <Select value={formData.yearOfStudy} onValueChange={(value) => setFormData(prev => ({ ...prev, yearOfStudy: value }))}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select your year" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="1">1st Year</SelectItem>
-                      <SelectItem value="2">2nd Year</SelectItem>
-                      <SelectItem value="3">3rd Year</SelectItem>
-                      <SelectItem value="4">4th Year</SelectItem>
-                      <SelectItem value="5">5+ Years</SelectItem>
-                      <SelectItem value="graduate">Graduate Student</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div className="space-y-2">
-                  <label className="text-sm font-medium">Department (Optional)</label>
-                  <Input
-                    placeholder="Computer Science, Psychology, etc."
-                    value={formData.department}
-                    onChange={(e) => setFormData(prev => ({ ...prev, department: e.target.value }))}
-                  />
-                </div>
-              </CardContent>
-            </>
-          )}
-
-          {step === 3 && (
-            <>
-              <CardHeader className="text-center">
                 <CardTitle>What interests you?</CardTitle>
                 <p className="text-muted-foreground">Select topics you'd like to explore (choose at least one)</p>
               </CardHeader>
@@ -225,7 +173,7 @@ export default function Onboarding() {
             </>
           )}
 
-          {step === 4 && (
+          {step === 3 && (
             <>
               <CardHeader className="text-center">
                 <CardTitle>Almost done!</CardTitle>
@@ -262,11 +210,11 @@ export default function Onboarding() {
 
           <div className="p-6 pt-0">
             <Button
-              onClick={step === 4 ? handleComplete : handleNext}
+              onClick={step === 3 ? handleComplete : handleNext}
               disabled={!canProceed()}
               className="w-full"
             >
-              {step === 4 ? 'Complete Setup' : 'Continue'}
+              {step === 3 ? 'Complete Setup' : 'Continue'}
               <ChevronRight className="ml-2 h-4 w-4" />
             </Button>
           </div>

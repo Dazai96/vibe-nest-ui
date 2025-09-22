@@ -12,6 +12,9 @@ import Communities from "./pages/Communities";
 import Mood from "./pages/Mood";
 import Resources from "./pages/Resources";
 import Profile from "./pages/Profile";
+import ProfileSettings from "./pages/ProfileSettings";
+import Leaderboard from "./pages/Leaderboard";
+import Missions from "./pages/Missions";
 import Settings from "./pages/Settings";
 import AdminDashboard from "./pages/AdminDashboard";
 import Therapists from "./pages/Therapists";
@@ -66,6 +69,27 @@ const App = () => (
                   <ProtectedRoute>
                     <MainLayout>
                       <Profile />
+                    </MainLayout>
+                  </ProtectedRoute>
+                } />
+                <Route path="/profile/settings" element={
+                  <ProtectedRoute>
+                    <MainLayout>
+                      <ProfileSettings />
+                    </MainLayout>
+                  </ProtectedRoute>
+                } />
+                <Route path="/leaderboard" element={
+                  <ProtectedRoute>
+                    <MainLayout>
+                      <Leaderboard />
+                    </MainLayout>
+                  </ProtectedRoute>
+                } />
+                <Route path="/missions" element={
+                  <ProtectedRoute>
+                    <MainLayout>
+                      <Missions />
                     </MainLayout>
                   </ProtectedRoute>
                 } />

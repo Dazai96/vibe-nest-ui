@@ -12,15 +12,15 @@ const navItems = [
   { icon: UserPlus, label: "Friends", path: "/friends" },
 ];
 
-// Mock mood data for the graph
+// Mock mood data for the line graph
 const moodData = [
-  { day: "Mon", mood: 7 },
-  { day: "Tue", mood: 6 },
-  { day: "Wed", mood: 8 },
-  { day: "Thu", mood: 7 },
-  { day: "Fri", mood: 9 },
-  { day: "Sat", mood: 8 },
-  { day: "Sun", mood: 7 },
+  { day: "Mon", mood: 6.5 },
+  { day: "Tue", mood: 7.2 },
+  { day: "Wed", mood: 5.8 },
+  { day: "Thu", mood: 8.1 },
+  { day: "Fri", mood: 7.9 },
+  { day: "Sat", mood: 6.3 },
+  { day: "Sun", mood: 7.6 },
 ];
 
 export function LeftSidebar() {
@@ -67,17 +67,65 @@ export function LeftSidebar() {
               <span>10</span>
             </div>
             
-            {/* Simple bar chart */}
-            <div className="h-28 sm:h-32 flex items-end justify-between gap-1">
-              {moodData.map((data, index) => (
-                <div key={data.day} className="flex flex-col items-center gap-1 flex-1">
-                  <div
-                    className="w-full bg-primary rounded-t transition-all hover:bg-primary/80 min-h-[8px]"
-                    style={{ height: `${(data.mood / 10) * 100}%` }}
-                  />
-                  <span className="text-xs text-muted-foreground truncate">{data.day}</span>
-                </div>
-              ))}
+            {/* Line graph */}
+            <div className="h-28 sm:h-32 relative">
+              <svg width="100%" height="100%" viewBox="0 0 280 120" className="overflow-visible">
+                {/* Grid lines */}
+                <defs>
+                  <pattern id="grid" width="40" height="24" patternUnits="userSpaceOnUse">
+                    <path d="M 40 0 L 0 0 0 24" fill="none" stroke="currentColor" strokeWidth="0.5" opacity="0.1"/>
+                  </pattern>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#grid)" />
+                
+                {/* Line path */}
+                <path
+                  d={moodData.map((point, index) => {
+                    const x = 20 + (index * 40);
+                    const y = 100 - ((point.mood / 10) * 80);
+                    return `${index === 0 ? 'M' : 'L'} ${x} ${y}`;
+                  }).join(' ')}
+                  fill="none"
+                  stroke="hsl(var(--primary))"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                
+                {/* Data points */}
+                {moodData.map((point, index) => {
+                  const x = 20 + (index * 40);
+                  const y = 100 - ((point.mood / 10) * 80);
+                  return (
+                    <circle
+                      key={point.day}
+                      cx={x}
+                      cy={y}
+                      r="3"
+                      fill="hsl(var(--primary))"
+                      stroke="hsl(var(--background))"
+                      strokeWidth="2"
+                      className="hover:r-4 transition-all cursor-pointer"
+                    />
+                  );
+                })}
+                
+                {/* Day labels */}
+                {moodData.map((point, index) => {
+                  const x = 20 + (index * 40);
+                  return (
+                    <text
+                      key={point.day}
+                      x={x}
+                      y="115"
+                      textAnchor="middle"
+                      className="text-xs fill-current text-muted-foreground"
+                    >
+                      {point.day}
+                    </text>
+                  );
+                })}
+              </svg>
             </div>
             
             <div className="flex justify-between text-xs text-muted-foreground">

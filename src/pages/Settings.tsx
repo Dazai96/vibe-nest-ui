@@ -179,7 +179,7 @@ export default function Settings() {
           <Button
             variant={theme === "light" ? "secondary" : "outline"}
             onClick={() => setTheme("light")}
-            className="h-auto p-4 flex-col gap-2"
+            className="h-auto p-4 flex-col gap-2 transition-smooth hover-scale"
           >
             <Sun className="h-5 w-5" />
             <span>Light</span>
@@ -187,7 +187,7 @@ export default function Settings() {
           <Button
             variant={theme === "dark" ? "secondary" : "outline"}
             onClick={() => setTheme("dark")}
-            className="h-auto p-4 flex-col gap-2"
+            className="h-auto p-4 flex-col gap-2 transition-smooth hover-scale"
           >
             <Moon className="h-5 w-5" />
             <span>Dark</span>
@@ -204,13 +204,18 @@ export default function Settings() {
             { id: "teal", name: "Teal", color: "bg-[hsl(186,85%,45%)]" },
             { id: "blue", name: "Blue", color: "bg-[hsl(220,85%,55%)]" },
             { id: "purple", name: "Purple", color: "bg-[hsl(270,75%,60%)]" },
+            { id: "lavender", name: "Lavender", color: "bg-[hsl(260,45%,75%)]" },
+            { id: "mint", name: "Mint", color: "bg-[hsl(150,40%,70%)]" },
+            { id: "peach", name: "Peach", color: "bg-[hsl(20,60%,75%)]" },
+            { id: "sky", name: "Sky Blue", color: "bg-[hsl(200,50%,75%)]" },
+            { id: "pink", name: "Soft Pink", color: "bg-[hsl(330,50%,75%)]" },
             { id: "neutral", name: "Neutral", color: "bg-[hsl(215,25%,45%)]" },
           ].map((themeOption) => (
             <Button
               key={themeOption.id}
               variant={colorTheme === themeOption.id ? "secondary" : "outline"}
               onClick={() => setColorTheme(themeOption.id as any)}
-              className="h-auto p-4 flex-col gap-2"
+              className="h-auto p-4 flex-col gap-2 transition-smooth hover-scale"
             >
               <div className={`w-6 h-6 rounded-full ${themeOption.color}`}></div>
               <span>{themeOption.name}</span>
@@ -278,7 +283,7 @@ export default function Settings() {
               key={size.id}
               variant={fontSize === size.id ? "secondary" : "outline"}
               onClick={() => setFontSize(size.id as any)}
-              className="h-auto p-4 flex-col gap-2"
+              className="h-auto p-4 flex-col gap-2 transition-smooth hover-scale"
             >
               <size.icon className={`${size.id === "small" ? "h-4 w-4" : size.id === "large" ? "h-7 w-7" : "h-5 w-5"}`} />
               <span>{size.name}</span>
@@ -410,7 +415,7 @@ export default function Settings() {
                   key={section.id}
                   variant={activeSection === section.id ? "secondary" : "ghost"}
                   onClick={() => setActiveSection(section.id)}
-                  className="w-full justify-start gap-3 h-auto p-3"
+                  className="w-full justify-start gap-3 h-auto p-3 transition-smooth hover-scale"
                 >
                   <section.icon className="h-5 w-5" />
                   <div className="text-left">
@@ -431,7 +436,7 @@ export default function Settings() {
             <Separator className="my-6" />
             
             <div className="flex justify-end">
-              <Button className="bg-primary hover:bg-[hsl(var(--primary-hover))] text-primary-foreground">
+              <Button className="bg-primary hover:bg-[hsl(var(--primary-hover))] text-primary-foreground transition-smooth hover-scale">
                 <Save className="h-4 w-4 mr-2" />
                 Save Changes
               </Button>

@@ -2,9 +2,9 @@ import { createContext, useContext, useEffect, useState } from "react";
 
 interface ThemeContextType {
   theme: "light" | "dark";
-  colorTheme: "teal" | "blue" | "purple" | "neutral";
+  colorTheme: "teal" | "blue" | "purple" | "neutral" | "lavender" | "mint" | "peach" | "sky" | "pink";
   setTheme: (theme: "light" | "dark") => void;
-  setColorTheme: (theme: "teal" | "blue" | "purple" | "neutral") => void;
+  setColorTheme: (theme: "teal" | "blue" | "purple" | "neutral" | "lavender" | "mint" | "peach" | "sky" | "pink") => void;
   fontSize: "small" | "medium" | "large";
   setFontSize: (size: "small" | "medium" | "large") => void;
   highContrast: boolean;
@@ -23,7 +23,7 @@ export const useTheme = () => {
 
 export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
   const [theme, setTheme] = useState<"light" | "dark">("light");
-  const [colorTheme, setColorTheme] = useState<"teal" | "blue" | "purple" | "neutral">("teal");
+  const [colorTheme, setColorTheme] = useState<"teal" | "blue" | "purple" | "neutral" | "lavender" | "mint" | "peach" | "sky" | "pink">("teal");
   const [fontSize, setFontSize] = useState<"small" | "medium" | "large">("medium");
   const [highContrast, setHighContrast] = useState(false);
 
@@ -31,7 +31,7 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
     const root = window.document.documentElement;
     
     // Remove previous theme classes
-    root.classList.remove("dark", "theme-blue", "theme-purple", "theme-neutral");
+    root.classList.remove("dark", "theme-blue", "theme-purple", "theme-neutral", "theme-lavender", "theme-mint", "theme-peach", "theme-sky", "theme-pink");
     
     // Apply current theme
     if (theme === "dark") {

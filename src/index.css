@@ -176,6 +176,87 @@ All colors MUST be HSL. Flat design, no gradients.
     --accent-soft: 290 65% 15%;
   }
 
+  /* Pastel Themes */
+  .theme-lavender {
+    --primary: 260 45% 75%;
+    --primary-hover: 260 45% 70%;
+    --primary-soft: 260 45% 95%;
+    --secondary: 280 35% 70%;
+    --accent: 240 40% 75%;
+    --accent-soft: 240 40% 95%;
+  }
+
+  .theme-lavender.dark {
+    --primary: 260 45% 65%;
+    --primary-soft: 260 45% 15%;
+    --accent: 240 40% 65%;
+    --accent-soft: 240 40% 15%;
+  }
+
+  .theme-mint {
+    --primary: 150 40% 70%;
+    --primary-hover: 150 40% 65%;
+    --primary-soft: 150 40% 95%;
+    --secondary: 170 35% 70%;
+    --accent: 130 45% 70%;
+    --accent-soft: 130 45% 95%;
+  }
+
+  .theme-mint.dark {
+    --primary: 150 40% 60%;
+    --primary-soft: 150 40% 15%;
+    --accent: 130 45% 60%;
+    --accent-soft: 130 45% 15%;
+  }
+
+  .theme-peach {
+    --primary: 20 60% 75%;
+    --primary-hover: 20 60% 70%;
+    --primary-soft: 20 60% 95%;
+    --secondary: 40 50% 75%;
+    --accent: 10 65% 75%;
+    --accent-soft: 10 65% 95%;
+  }
+
+  .theme-peach.dark {
+    --primary: 20 60% 65%;
+    --primary-soft: 20 60% 15%;
+    --accent: 10 65% 65%;
+    --accent-soft: 10 65% 15%;
+  }
+
+  .theme-sky {
+    --primary: 200 50% 75%;
+    --primary-hover: 200 50% 70%;
+    --primary-soft: 200 50% 95%;
+    --secondary: 220 40% 75%;
+    --accent: 180 55% 75%;
+    --accent-soft: 180 55% 95%;
+  }
+
+  .theme-sky.dark {
+    --primary: 200 50% 65%;
+    --primary-soft: 200 50% 15%;
+    --accent: 180 55% 65%;
+    --accent-soft: 180 55% 15%;
+  }
+
+  .theme-pink {
+    --primary: 330 50% 75%;
+    --primary-hover: 330 50% 70%;
+    --primary-soft: 330 50% 95%;
+    --secondary: 350 45% 75%;
+    --accent: 310 55% 75%;
+    --accent-soft: 310 55% 95%;
+  }
+
+  .theme-pink.dark {
+    --primary: 330 50% 65%;
+    --primary-soft: 330 50% 15%;
+    --accent: 310 55% 65%;
+    --accent-soft: 310 55% 15%;
+  }
+
   .theme-neutral {
     --primary: 215 25% 45%;
     --primary-hover: 215 25% 40%;
@@ -281,6 +362,14 @@ All colors MUST be HSL. Flat design, no gradients.
   
   .animate-slide-up {
     animation: slideUp 0.4s ease-out;
+  }
+
+  .hover-scale {
+    @apply transition-transform duration-200 hover:scale-105;
+  }
+
+  .transition-smooth {
+    @apply transition-all duration-300 ease-in-out;
   }
 }
 

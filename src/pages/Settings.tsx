@@ -27,8 +27,10 @@ import {
   Menu,
   TrendingUp,
   Clock,
-  Filter
+  Filter,
+  Check
 } from "lucide-react";
+import { toast as sonnerToast } from "@/components/ui/sonner";
 import { useTheme } from "@/contexts/ThemeContext";
 import GmailSync from "@/components/settings/GmailSync";
 
@@ -62,6 +64,7 @@ export default function Settings() {
     hideLowVotePosts: false,
     communityBannerColor: "teal",
   });
+  const [savedRecently, setSavedRecently] = useState(false);
 
   const updateSetting = (key: string, value: any) => {
     setSettings(prev => ({ ...prev, [key]: value }));
@@ -538,6 +541,12 @@ export default function Settings() {
     }
   };
 
+  const handleSave = () => {
+    sonnerToast("Changes saved", { description: "Your settings were updated." });
+    setSavedRecently(true);
+    setTimeout(() => setSavedRecently(false), 2000);
+  };
+
   const renderSidebarContent = () => (
     <div className="space-y-1 p-2">
       {settingSections.map((section) => (
@@ -604,9 +613,22 @@ export default function Settings() {
             <Separator className="my-6" />
             
             <div className="flex justify-end">
-              <Button className="bg-primary hover:bg-[hsl(var(--primary-hover))] text-primary-foreground transition-smooth hover-scale">
-                <Save className="h-4 w-4 mr-2" />
-                Save Changes
+              <Button 
+                onClick={handleSave}
+                disabled={savedRecently}
+                className={`min-w-32 ${savedRecently ? 'bg-muted text-muted-foreground hover:bg-muted' : 'bg-primary hover:bg-[hsl(var(--primary-hover))] text-primary-foreground'} transition-smooth hover-scale`}
+              >
+                {savedRecently ? (
+                  <>
+                    <Check className="h-4 w-4 mr-2" />
+                    Saved
+                  </>
+                ) : (
+                  <>
+                    <Save className="h-4 w-4 mr-2" />
+                    Save Changes
+                  </>
+                )}
               </Button>
             </div>
           </Card>

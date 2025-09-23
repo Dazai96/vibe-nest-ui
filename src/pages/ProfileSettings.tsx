@@ -24,15 +24,18 @@ import {
   Linkedin, 
   MessageSquare,
   Save,
+  Check,
   Globe,
   Mail,
   Phone
 } from "lucide-react";
+import { toast as sonnerToast } from "@/components/ui/sonner";
 
 export default function ProfileSettings() {
   const { user } = useAuth();
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
+  const [savedRecently, setSavedRecently] = useState(false);
   const [uploading, setUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [avatarPreview, setAvatarPreview] = useState<string>("");
@@ -207,6 +210,9 @@ export default function ProfileSettings() {
         title: "Success",
         description: "Profile settings saved successfully",
       });
+      sonnerToast("Changes saved", { description: "Your profile was updated." });
+      setSavedRecently(true);
+      setTimeout(() => setSavedRecently(false), 2000);
     } catch (error) {
       console.error('Error saving profile:', error);
       toast({
@@ -583,9 +589,18 @@ export default function ProfileSettings() {
 
       {/* Save Button */}
       <div className="flex justify-end">
-        <Button onClick={saveProfile} disabled={loading} className="min-w-32">
+        <Button 
+          onClick={saveProfile} 
+          disabled={loading || savedRecently} 
+          className={`min-w-32 ${savedRecently ? 'bg-muted text-muted-foreground hover:bg-muted' : ''}`}
+        >
           {loading ? (
             "Saving..."
+          ) : savedRecently ? (
+            <>
+              <Check className="h-4 w-4 mr-2" />
+              Saved
+            </>
           ) : (
             <>
               <Save className="h-4 w-4 mr-2" />

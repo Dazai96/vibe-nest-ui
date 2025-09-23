@@ -12,6 +12,8 @@ interface AuthContextType {
   signInWithFacebook: () => Promise<{ error: any }>;
   signOut: () => Promise<void>;
   updateProfile: (updates: any) => Promise<{ error: any }>;
+  profile: { display_name?: string; avatar_url?: string } | null;
+  refreshProfile: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -28,6 +30,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
+  const [profile, setProfile] = useState<{ display_name?: string; avatar_url?: string } | null>(null);
 
   useEffect(() => {
     // Set up auth state listener
@@ -42,6 +45,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           setTimeout(() => {
             syncGoogleProfile(session.user);
           }, 0);
+          // Fetch profile
+          setTimeout(() => {
+            fetchProfile(session.user!.id);
+          }, 0);
         }
       }
     );
@@ -51,6 +58,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setSession(session);
       setUser(session?.user ?? null);
       setLoading(false);
+      if (session?.user) fetchProfile(session.user.id);
     });
 
     return () => subscription.unsubscribe();
@@ -79,8 +87,23 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           .from('profiles')
           .upsert(profileData, { onConflict: 'user_id' });
       }
+      // Ensure local state updated
+      await fetchProfile(user.id);
     } catch (error) {
       console.error('Error syncing Google profile:', error);
+    }
+  };
+
+  const fetchProfile = async (userId: string) => {
+    try {
+      const { data } = await supabase
+        .from('profiles')
+        .select('display_name, avatar_url')
+        .eq('user_id', userId)
+        .single();
+      setProfile(data || null);
+    } catch (e) {
+      setProfile(null);
     }
   };
 
@@ -149,6 +172,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     user,
     session,
     loading,
+    profile,
+    refreshProfile: async () => {
+      if (user) await fetchProfile(user.id);
+    },
     signUp,
     signIn,
     signInWithGoogle,

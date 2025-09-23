@@ -134,8 +134,10 @@ export default function Feed() {
               </div>
             </div>
           ) : (
-            samplePosts.map((post) => (
-              <PostCard key={post.id} {...post} />
+            samplePosts.map((post, idx) => (
+              <div key={post.id} className="glass-card border border-white/10 dark:border-white/5">
+                <PostCard {...post} />
+              </div>
             ))
           )}
         </div>

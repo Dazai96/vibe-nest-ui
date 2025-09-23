@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useState } from "react";
 import { toast } from "@/components/ui/sonner";
+import { motion } from "framer-motion";
 
 interface PostCardProps {
   id: string;
@@ -69,7 +70,7 @@ export const PostCard = ({
   };
 
   return (
-    <article className="bg-card border border-border rounded-[var(--radius)] p-4 space-y-3 hover:shadow-[var(--shadow-card)] transition-shadow">
+    <motion.article whileHover={{ y: -2 }} transition={{ type: "spring", stiffness: 300, damping: 22, duration: 0.15 }} className="bg-card border border-border rounded-[var(--radius)] p-4 space-y-3 hover:shadow-[var(--shadow-card)] transition-shadow">
       {/* Header */}
       <div className="flex items-start justify-between">
         <div className="flex items-center gap-3">
@@ -166,6 +167,6 @@ export const PostCard = ({
           </Button>
         </div>
       </div>
-    </article>
+    </motion.article>
   );
 };

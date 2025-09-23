@@ -19,9 +19,9 @@ const moodData = dataRandomizer.getRandomMoodData();
 
 export function LeftSidebar() {
   return (
-    <aside className="w-64 xl:w-72 bg-sidebar/95 backdrop-blur-md border-r border-sidebar-border p-4 lg:p-6 space-y-6 overflow-y-auto">
+    <aside className="w-72 xl:w-80 bg-sidebar/95 backdrop-blur-md p-4 lg:p-6 space-y-6 overflow-y-auto">
       {/* Navigation */}
-      <Card className="card-soft">
+      <Card className="glass-card">
         <CardHeader className="card-header-spacing">
           <CardTitle className="text-sm font-medium text-sidebar-foreground">Navigation</CardTitle>
         </CardHeader>
@@ -47,7 +47,7 @@ export function LeftSidebar() {
       </Card>
 
       {/* Mood Tracking Graph */}
-      <Card className="card-soft">
+      <Card className="glass-card">
         <CardHeader className="card-header-spacing">
           <CardTitle className="text-sm font-medium text-sidebar-foreground flex items-center gap-2">
             <TrendingUp className="h-4 w-4 flex-shrink-0" />

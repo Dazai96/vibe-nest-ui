@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Bell, Search, Plus, Menu, Settings, Stethoscope, BarChart3, User, LogOut, Home, Users, UserPlus, Share2, Star, Lightbulb, Trophy, Heart, Bot } from "lucide-react";
+import { Bell, Search, Plus, ChevronDown, Settings, Stethoscope, BarChart3, User, LogOut, Home, Users, UserPlus, Share2, Star, Lightbulb, Trophy, Heart, Bot } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator, DropdownMenuLabel } from "@/components/ui/dropdown-menu";
@@ -9,7 +9,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { NotificationModal } from "@/components/ui/notification-modal";
 import { PostModal } from "@/components/ui/post-modal";
 import { InviteModal } from "@/components/ui/invite-modal";
-import Logo from "@/components/ui/Logo";
+// Logo removed; using text brand instead
 
 export const Header = () => {
   const { signOut, user } = useAuth();
@@ -30,18 +30,24 @@ export const Header = () => {
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-16 items-center justify-between px-4">
+    <header className="sticky top-0 z-50 w-full border-b border-border bg-white/70 dark:bg-black/30 backdrop-blur-md supports-[backdrop-filter]:bg-background/60">
+      <div className="container grid [grid-template-columns:auto_1fr_auto] items-center h-14 md:h-16 gap-3 px-4 md:px-6">
         {/* Logo & Brand */}
-        <div className="flex items-center gap-3">
-          {/* Hamburger Menu - Desktop Only */}
+        <div className="flex items-center gap-2 md:gap-3 min-w-0 col-start-1 justify-start">
+          <NavLink to="/" className="flex items-center" data-emoji-trigger>
+            <span className="font-bold tracking-tight text-2xl md:text-3xl text-foreground transition-transform duration-150 will-change-transform hover:-translate-y-0.5 active:translate-y-0">VibeNest</span>
+          </NavLink>
+
+          {/* Home selector */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="icon" className="hidden md:flex">
-                <Menu className="h-5 w-5" />
+              <Button variant="outline" size="sm" className="hidden md:inline-flex h-9 rounded-full px-3 gap-2">
+                <Home className="h-4 w-4" />
+                <span className="text-sm">Home</span>
+                <ChevronDown className="h-4 w-4" />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="start" className="w-48">
+            <DropdownMenuContent align="start" className="w-56">
               {navItems.map(({ icon: Icon, label, path }) => (
                 <DropdownMenuItem key={path} asChild>
                   <NavLink to={path} className="flex items-center gap-2">
@@ -52,28 +58,21 @@ export const Header = () => {
               ))}
             </DropdownMenuContent>
           </DropdownMenu>
-
-          <NavLink to="/" className="flex items-center gap-2 hover-scale transition-smooth" data-emoji-trigger>
-            <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-primary" data-emoji-trigger>
-              <Logo size="md" className="text-primary-foreground" />
-            </div>
-            <h1 className="text-xl font-bold text-foreground">Vibenest</h1>
-          </NavLink>
         </div>
 
         {/* Search Bar - Hidden on Mobile */}
-        <div className="hidden md:flex flex-1 max-w-md mx-8">
-          <div className="relative w-full">
+        <div className="hidden md:flex col-start-2 justify-center">
+          <div className="relative w-full max-w-lg mx-auto">
             <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             <Input
               placeholder="Search posts, questions, resources..."
-              className="pl-10 bg-muted border-0 focus-visible:ring-2 focus-visible:ring-ring"
+              className="pl-10 pr-3 h-10 rounded-full bg-muted border-0 focus-visible:ring-2 focus-visible:ring-ring"
             />
           </div>
         </div>
 
         {/* Actions */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5 md:gap-2 col-start-3 justify-end">
           {/* Mobile AI quick button */}
           <Button
             variant="ghost"
@@ -110,8 +109,8 @@ export const Header = () => {
               <Button variant="ghost" className="relative h-8 w-8 rounded-full hover-scale">
                 <Avatar className="h-8 w-8">
                   <AvatarImage 
-                    src={user?.user_metadata?.avatar_url || user?.user_metadata?.picture || "/avatars/person1.jpg"} 
-                    alt={user?.user_metadata?.full_name || user?.email || 'User'} 
+                    src={(user as any)?.user_metadata?.avatar_url || (user as any)?.user_metadata?.picture || (user as any)?.user_metadata?.avatar || (user as any)?.user_metadata?.avatarUrl || "/avatars/person1.jpg"} 
+                    alt={(user as any)?.user_metadata?.full_name || user?.email || 'User'} 
                   />
                   <AvatarFallback>
                     {(user?.user_metadata?.full_name?.[0] || user?.email?.[0] || 'U').toUpperCase()}

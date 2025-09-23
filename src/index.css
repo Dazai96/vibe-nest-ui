@@ -302,7 +302,7 @@ All colors MUST be HSL. Flat design, no gradients.
 
   body {
     @apply bg-background text-foreground antialiased transition-colors duration-200;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", Arial, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
   }
 
   /* Ensure all UI components have smooth transitions */
@@ -611,15 +611,15 @@ All colors MUST be HSL. Flat design, no gradients.
 /* Responsive improvements */
 @media (max-width: 640px) {
   .page-container {
-    @apply px-3 py-4;
+    @apply px-4 py-5;
   }
   
   .card-content-spacing {
-    @apply p-3;
+    @apply p-4;
   }
   
   .card-header-spacing {
-    @apply p-3 pb-2;
+    @apply p-4 pb-3;
   }
 }
 

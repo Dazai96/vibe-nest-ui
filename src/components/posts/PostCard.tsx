@@ -2,6 +2,7 @@ import { Heart, MessageCircle, Share, Bookmark, MoreHorizontal, User } from "luc
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useState } from "react";
+import { toast } from "@/components/ui/sonner";
 
 interface PostCardProps {
   id: string;
@@ -38,6 +39,33 @@ export const PostCard = ({
   const handleLike = () => {
     setLiked(!liked);
     setLikeCount(liked ? likeCount - 1 : likeCount + 1);
+    toast(liked ? "Like removed" : "Post liked", { description: title });
+  };
+
+  const handleSave = () => {
+    setSaved(!saved);
+    toast(!saved ? "Saved to bookmarks" : "Removed from bookmarks", { description: title });
+  };
+
+  const handleShare = async () => {
+    const shareData = {
+      title: `Vibenest • ${title}`,
+      text: content,
+      url: window.location.href,
+    };
+    try {
+      if (navigator.share) {
+        await navigator.share(shareData);
+      } else {
+        await navigator.clipboard.writeText(`${shareData.title}\n${shareData.text}\n${shareData.url}`);
+        toast("Link copied to clipboard");
+      }
+    } catch (e) {
+      toast("Couldn't share. Link copied instead.");
+      try {
+        await navigator.clipboard.writeText(`${shareData.title}\n${shareData.text}\n${shareData.url}`);
+      } catch {}
+    }
   };
 
   return (
@@ -121,13 +149,13 @@ export const PostCard = ({
         </div>
 
         <div className="flex items-center gap-1">
-          <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground hover:text-foreground">
+          <Button variant="ghost" size="icon" onClick={handleShare} className="h-8 w-8 text-muted-foreground hover:text-foreground">
             <Share className="h-4 w-4" />
           </Button>
           <Button
             variant="ghost"
             size="icon"
-            onClick={() => setSaved(!saved)}
+            onClick={handleSave}
             className={`h-8 w-8 ${
               saved 
                 ? "text-primary hover:text-primary" 

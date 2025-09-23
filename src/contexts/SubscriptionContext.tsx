@@ -56,57 +56,57 @@ export const useSubscription = () => {
 const SUBSCRIPTION_PLANS: SubscriptionPlan[] = [
   {
     id: 'free',
-    name: 'Free',
-    description: 'Perfect for getting started',
+    name: 'Student Free',
+    description: 'Great for starting your wellness journey',
     price: 0,
     currency: 'INR',
     interval: 'month',
     features: [
       '5 posts per month',
-      'Basic AI chat (100 messages)',
-      'Community access',
-      'Basic mood tracking',
-      'Ads included'
+      'AI chat basics (50 messages)',
+      'Peer community access',
+      'Mood check-ins & streaks',
+      'Ad-light experience'
     ],
     maxPosts: 5,
     hasAds: true,
-    aiChatLimit: 100,
+    aiChatLimit: 50,
     prioritySupport: false,
   },
   {
     id: 'premium',
-    name: 'Premium',
-    description: 'For active community members',
-    price: 299,
+    name: 'Student Plus',
+    description: 'Best for active students who want more support',
+    price: 99,
     currency: 'INR',
     interval: 'month',
     features: [
       'Unlimited posts',
-      'Advanced AI chat (100 messages)',
-      'Priority support',
-      'Advanced mood analytics',
+      'AI chat assistant (300 messages)',
+      'Focus mode & study timers',
+      'Weekly wellness insights',
       'No ads',
-      'Exclusive communities'
+      'Invite-only peer groups'
     ],
     maxPosts: -1, // unlimited
     hasAds: false,
-    aiChatLimit: 100,
+    aiChatLimit: 300,
     prioritySupport: true,
   },
   {
     id: 'pro',
-    name: 'Pro',
-    description: 'For power users and professionals',
-    price: 599,
+    name: 'Student Pro',
+    description: 'For student leaders and creators',
+    price: 199,
     currency: 'INR',
     interval: 'month',
     features: [
-      'Everything in Premium',
+      'Everything in Plus',
       'Unlimited AI chat',
-      'Personal therapist matching',
-      'Advanced analytics dashboard',
-      'Custom themes',
-      'API access'
+      '1:1 mentor Q&A (community coaches)',
+      'Advanced mood & study analytics',
+      'Creator tools & custom themes',
+      'Early access features'
     ],
     maxPosts: -1, // unlimited
     hasAds: false,

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Bell, Search, Plus, Menu, Settings, Stethoscope, BarChart3, User, LogOut, Home, Users, UserPlus, Share2, Star, Lightbulb, Trophy, Heart } from "lucide-react";
+import { Bell, Search, Plus, Menu, Settings, Stethoscope, BarChart3, User, LogOut, Home, Users, UserPlus, Share2, Star, Lightbulb, Trophy, Heart, Bot } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator, DropdownMenuLabel } from "@/components/ui/dropdown-menu";
@@ -53,8 +53,8 @@ export const Header = () => {
             </DropdownMenuContent>
           </DropdownMenu>
 
-          <NavLink to="/" className="flex items-center gap-2 hover-scale transition-smooth">
-            <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-primary">
+          <NavLink to="/" className="flex items-center gap-2 hover-scale transition-smooth" data-emoji-trigger>
+            <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-primary" data-emoji-trigger>
               <Logo size="md" className="text-primary-foreground" />
             </div>
             <h1 className="text-xl font-bold text-foreground">Vibenest</h1>
@@ -74,6 +74,17 @@ export const Header = () => {
 
         {/* Actions */}
         <div className="flex items-center gap-2">
+          {/* Mobile AI quick button */}
+          <Button
+            variant="ghost"
+            size="icon"
+            className="flex md:hidden relative hover-scale"
+            onClick={() => window.dispatchEvent(new Event('open-chatbot'))}
+            aria-label="Open AI Assistant"
+          >
+            <Bot className="h-5 w-5" />
+          </Button>
+
           <Button
             variant="ghost"
             size="icon"

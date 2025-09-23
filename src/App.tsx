@@ -1,9 +1,10 @@
 import { Suspense, lazy } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { HelmetProvider, Helmet } from "react-helmet-async";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { AuthProvider } from "@/contexts/AuthContext";
@@ -13,6 +14,9 @@ import { MainLayout } from "@/components/layout/MainLayout";
 import { ErrorBoundary } from "@/components/ui/error-boundary";
 import { LoadingSpinner } from "@/components/ui/skeleton-loaders";
 import { SillyFactLoader } from "@/components/ui/silly-fact-loader";
+import EasterEggs from "@/components/ui/EasterEggs";
+import OnlineStatus from "@/components/ui/OnlineStatus";
+import CommandPalette from "@/components/ui/CommandPalette";
 
 // Lazy load pages for better performance
 const Feed = lazy(() => import("./pages/Feed"));
@@ -52,6 +56,119 @@ const PageLoadingFallback = () => (
   </div>
 );
 
+const RouteContainer = () => {
+  const location = useLocation();
+  return (
+    <AnimatePresence mode="wait" initial={false}>
+      <motion.div
+        key={location.pathname}
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -8 }}
+        transition={{ duration: 0.2, ease: "easeOut" }}
+        className="min-h-screen"
+      >
+        <Routes location={location}>
+          <Route path="/auth" element={<Auth />} />
+          <Route path="/onboarding" element={<Onboarding />} />
+          <Route path="/" element={
+            <ProtectedRoute>
+              <MainLayout>
+                <Feed />
+              </MainLayout>
+            </ProtectedRoute>
+          } />
+          <Route path="/communities" element={
+            <ProtectedRoute>
+              <MainLayout>
+                <Communities />
+              </MainLayout>
+            </ProtectedRoute>
+          } />
+          <Route path="/mood" element={
+            <ProtectedRoute>
+              <MainLayout>
+                <Mood />
+              </MainLayout>
+            </ProtectedRoute>
+          } />
+          <Route path="/resources" element={
+            <ProtectedRoute>
+              <MainLayout>
+                <Resources />
+              </MainLayout>
+            </ProtectedRoute>
+          } />
+          <Route path="/profile" element={
+            <ProtectedRoute>
+              <MainLayout>
+                <Profile />
+              </MainLayout>
+            </ProtectedRoute>
+          } />
+          <Route path="/profile/settings" element={
+            <ProtectedRoute>
+              <MainLayout>
+                <ProfileSettings />
+              </MainLayout>
+            </ProtectedRoute>
+          } />
+          <Route path="/leaderboard" element={
+            <ProtectedRoute>
+              <MainLayout>
+                <Leaderboard />
+              </MainLayout>
+            </ProtectedRoute>
+          } />
+          <Route path="/missions" element={
+            <ProtectedRoute>
+              <MainLayout>
+                <Missions />
+              </MainLayout>
+            </ProtectedRoute>
+          } />
+          <Route path="/settings" element={
+            <ProtectedRoute>
+              <MainLayout>
+                <Settings />
+              </MainLayout>
+            </ProtectedRoute>
+          } />
+          <Route path="/admin" element={
+            <ProtectedRoute>
+              <MainLayout>
+                <AdminDashboard />
+              </MainLayout>
+            </ProtectedRoute>
+          } />
+          <Route path="/therapists" element={
+            <ProtectedRoute>
+              <MainLayout>
+                <Therapists />
+              </MainLayout>
+            </ProtectedRoute>
+          } />
+          <Route path="/friends" element={
+            <ProtectedRoute>
+              <MainLayout>
+                <Friends />
+              </MainLayout>
+            </ProtectedRoute>
+          } />
+          <Route path="/subscription" element={
+            <ProtectedRoute>
+              <MainLayout>
+                <Subscription />
+              </MainLayout>
+            </ProtectedRoute>
+          } />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </motion.div>
+    </AnimatePresence>
+  );
+};
+
 const App = () => (
   <ErrorBoundary>
     <QueryClientProvider client={queryClient}>
@@ -78,105 +195,13 @@ const App = () => (
               <Sonner />
               <BrowserRouter>
                 <div className="min-h-screen bg-background transition-colors duration-300">
+                  <OnlineStatus />
                   <Suspense fallback={<PageLoadingFallback />}>
-                    <Routes>
-                      <Route path="/auth" element={<Auth />} />
-                      <Route path="/onboarding" element={<Onboarding />} />
-                      <Route path="/" element={
-                        <ProtectedRoute>
-                          <MainLayout>
-                            <Feed />
-                          </MainLayout>
-                        </ProtectedRoute>
-                      } />
-                      <Route path="/communities" element={
-                        <ProtectedRoute>
-                          <MainLayout>
-                            <Communities />
-                          </MainLayout>
-                        </ProtectedRoute>
-                      } />
-                      <Route path="/mood" element={
-                        <ProtectedRoute>
-                          <MainLayout>
-                            <Mood />
-                          </MainLayout>
-                        </ProtectedRoute>
-                      } />
-                      <Route path="/resources" element={
-                        <ProtectedRoute>
-                          <MainLayout>
-                            <Resources />
-                          </MainLayout>
-                        </ProtectedRoute>
-                      } />
-                      <Route path="/profile" element={
-                        <ProtectedRoute>
-                          <MainLayout>
-                            <Profile />
-                          </MainLayout>
-                        </ProtectedRoute>
-                      } />
-                      <Route path="/profile/settings" element={
-                        <ProtectedRoute>
-                          <MainLayout>
-                            <ProfileSettings />
-                          </MainLayout>
-                        </ProtectedRoute>
-                      } />
-                      <Route path="/leaderboard" element={
-                        <ProtectedRoute>
-                          <MainLayout>
-                            <Leaderboard />
-                          </MainLayout>
-                        </ProtectedRoute>
-                      } />
-                      <Route path="/missions" element={
-                        <ProtectedRoute>
-                          <MainLayout>
-                            <Missions />
-                          </MainLayout>
-                        </ProtectedRoute>
-                      } />
-                      <Route path="/settings" element={
-                        <ProtectedRoute>
-                          <MainLayout>
-                            <Settings />
-                          </MainLayout>
-                        </ProtectedRoute>
-                      } />
-                      <Route path="/admin" element={
-                        <ProtectedRoute>
-                          <MainLayout>
-                            <AdminDashboard />
-                          </MainLayout>
-                        </ProtectedRoute>
-                      } />
-                      <Route path="/therapists" element={
-                        <ProtectedRoute>
-                          <MainLayout>
-                            <Therapists />
-                          </MainLayout>
-                        </ProtectedRoute>
-                      } />
-                      <Route path="/friends" element={
-                        <ProtectedRoute>
-                          <MainLayout>
-                            <Friends />
-                          </MainLayout>
-                        </ProtectedRoute>
-                      } />
-                      <Route path="/subscription" element={
-                        <ProtectedRoute>
-                          <MainLayout>
-                            <Subscription />
-                          </MainLayout>
-                        </ProtectedRoute>
-                      } />
-                      <Route path="*" element={<NotFound />} />
-                    </Routes>
+                    <RouteContainer />
                   </Suspense>
                 </div>
+                <EasterEggs />
+                <CommandPalette />
               </BrowserRouter>
             </HelmetProvider>
           </TooltipProvider>

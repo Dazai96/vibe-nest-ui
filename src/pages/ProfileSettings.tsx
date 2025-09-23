@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -33,6 +33,9 @@ export default function ProfileSettings() {
   const { user } = useAuth();
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const [avatarPreview, setAvatarPreview] = useState<string>("");
   const [profile, setProfile] = useState({
     display_name: "",
     bio: "",
@@ -117,6 +120,7 @@ export default function ProfileSettings() {
             ...((typeof data.notification_preferences === 'object' && data.notification_preferences !== null && !Array.isArray(data.notification_preferences) && data.notification_preferences) || {})
           }
         });
+        setAvatarPreview(data.avatar_url || "");
       }
     } catch (error) {
       console.error('Error fetching profile:', error);
@@ -125,6 +129,52 @@ export default function ProfileSettings() {
         description: "Failed to load profile settings",
         variant: "destructive"
       });
+    }
+  };
+
+  const openFilePicker = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleAvatarSelected = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file || !user) return;
+
+    if (!file.type.startsWith("image/")) {
+      toast({ title: "Unsupported file", description: "Please choose an image.", variant: "destructive" });
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      toast({ title: "File too large", description: "Max size is 5MB.", variant: "destructive" });
+      return;
+    }
+
+    try {
+      setUploading(true);
+      const localUrl = URL.createObjectURL(file);
+      setAvatarPreview(localUrl);
+
+      const ext = file.name.split('.').pop() || 'jpg';
+      const path = `avatars/${user.id}-${Date.now()}.${ext}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from('avatars')
+        .upload(path, file, { upsert: true, contentType: file.type });
+
+      if (uploadError) throw uploadError;
+
+      const { data: publicData } = supabase.storage.from('avatars').getPublicUrl(path);
+      const publicUrl = publicData?.publicUrl || '';
+
+      setProfile(prev => ({ ...prev, avatar_url: publicUrl }));
+
+      toast({ title: "Profile photo updated", description: "Don't forget to save changes." });
+    } catch (err) {
+      console.error('Avatar upload failed:', err);
+      toast({ title: "Upload failed", description: "Please try another image.", variant: "destructive" });
+    } finally {
+      setUploading(false);
+      if (fileInputRef.current) fileInputRef.current.value = "";
     }
   };
 
@@ -211,13 +261,23 @@ export default function ProfileSettings() {
         <CardContent className="space-y-4">
           <div className="flex items-center gap-4">
             <Avatar className="h-20 w-20">
-              <AvatarImage src={profile.avatar_url || "/avatars/person1.jpg"} alt="Profile" />
+              <AvatarImage src={avatarPreview || profile.avatar_url || "/avatars/person1.jpg"} alt="Profile" />
               <AvatarFallback>{profile.display_name?.[0] || user?.email?.[0]}</AvatarFallback>
             </Avatar>
-            <Button variant="outline" size="sm">
-              <Camera className="h-4 w-4 mr-2" />
-              Change Photo
-            </Button>
+            <div className="flex items-center gap-2">
+              <Button variant="outline" size="sm" onClick={openFilePicker} disabled={uploading}>
+                <Camera className="h-4 w-4 mr-2" />
+                {uploading ? 'Uploading...' : 'Change Photo'}
+              </Button>
+              <input 
+                ref={fileInputRef}
+                type="file" 
+                accept="image/*" 
+                capture="environment"
+                className="hidden" 
+                onChange={handleAvatarSelected}
+              />
+            </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

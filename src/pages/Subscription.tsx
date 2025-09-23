@@ -88,13 +88,13 @@ const Subscription: React.FC = () => {
           className="text-center mb-16"
         >
           <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent mb-4">
-            Choose Your Plan
+            Student-Friendly Plans
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-4">
-            Unlock the full potential of your mental health journey with our flexible subscription plans
+            Built for teens and students — affordable, no-pressure pricing just for demo.
           </p>
           <div className="inline-flex items-center px-4 py-2 rounded-full bg-green-100 dark:bg-green-900/20 text-green-700 dark:text-green-400 text-sm font-medium">
-            🎯 Demo Mode - All features available for presentation
+            🎯 Demo Mode — Student pricing shown for illustration only
           </div>
         </motion.div>
 
@@ -150,12 +150,24 @@ const Subscription: React.FC = () => {
                     <CardDescription className="text-base mt-2">{plan.description}</CardDescription>
                     
                     <div className="mt-6">
-                      <div className="flex items-baseline justify-center">
-                        <span className="text-4xl font-bold">{formatCurrency(plan.price)}</span>
-                        {plan.price > 0 && (
-                          <span className="text-muted-foreground ml-1">/{plan.interval}</span>
+                      <div className="flex items-center justify-center gap-3">
+                        {plan.id !== 'free' && (
+                          <span className="text-muted-foreground line-through">
+                            {plan.id === 'premium' ? formatCurrency(299) : formatCurrency(599)}
+                          </span>
                         )}
+                        <div className="flex items-baseline">
+                          <span className="text-4xl font-bold">{formatCurrency(plan.price)}</span>
+                          {plan.price > 0 && (
+                            <span className="text-muted-foreground ml-1">/{plan.interval}</span>
+                          )}
+                        </div>
                       </div>
+                      {plan.id !== 'free' && (
+                        <div className="mt-2">
+                          <Badge className="bg-emerald-500 text-white">Student Price</Badge>
+                        </div>
+                      )}
                     </div>
                   </CardHeader>
 

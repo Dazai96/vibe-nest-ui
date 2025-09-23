@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Search, BookOpen, Video, Headphones, Download, Bookmark } from "lucide-react";
+import { downloadText, toSafeFilename } from "@/lib/utils";
 import { useState } from "react";
 
 const categories = [
@@ -64,6 +65,23 @@ const getResourceIcon = (type: string) => {
 export default function Resources() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+
+  type ResourceItem = typeof resources[number];
+
+  const handleDownload = (resource: ResourceItem) => {
+    const lines = [
+      `Title: ${resource.title}`,
+      `Type: ${resource.type}`,
+      resource.duration ? `Duration: ${resource.duration}` : resource.readTime ? `Read Time: ${resource.readTime}` : undefined,
+      `Category: ${categories.find(c => c.id === resource.category)?.name || resource.category}`,
+      "",
+      resource.description,
+    ].filter(Boolean) as string[];
+
+    const content = lines.join("\n");
+    const filename = toSafeFilename(`${resource.title}-${resource.type}`, "txt");
+    downloadText(content, filename);
+  };
 
   const filteredResources = resources.filter(resource => {
     const matchesSearch = resource.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -181,7 +199,7 @@ export default function Resources() {
                     <Button variant="ghost" size="icon" className="h-8 w-8">
                       <Bookmark className={`h-4 w-4 ${resource.isSaved ? "fill-current text-primary" : ""}`} />
                     </Button>
-                    <Button variant="ghost" size="icon" className="h-8 w-8">
+                    <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => handleDownload(resource)}>
                       <Download className="h-4 w-4" />
                     </Button>
                   </div>

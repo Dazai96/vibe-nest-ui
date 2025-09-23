@@ -34,9 +34,9 @@ export function RightSidebar() {
   const todaysTip = wellnessTips[Math.floor(Math.random() * wellnessTips.length)];
 
   return (
-    <aside className="w-88 xl:w-[28rem] bg-sidebar/95 backdrop-blur-md p-4 lg:p-6 space-y-6 overflow-y-auto">
+    <aside className="w-80 xl:w-[28rem] bg-sidebar/95 backdrop-blur-md p-4 lg:p-6 space-y-6 overflow-y-auto">
       {/* Friend Suggestions */}
-      <Card className="glass-card">
+      <Card className="glass-card rounded-2xl">
         <CardHeader className="card-header-spacing">
           <CardTitle className="text-sm font-medium text-sidebar-foreground flex items-center gap-2">
             <Users className="h-4 w-4 flex-shrink-0" />
@@ -69,7 +69,7 @@ export function RightSidebar() {
       </Card>
 
       {/* Leaderboard */}
-      <Card className="glass-card">
+      <Card className="glass-card rounded-2xl">
         <CardHeader className="card-header-spacing">
           <CardTitle className="text-sm font-medium text-sidebar-foreground flex items-center gap-2">
             <Star className="h-4 w-4 flex-shrink-0" />
@@ -107,7 +107,7 @@ export function RightSidebar() {
       </Card>
 
       {/* Wellness Tips */}
-      <Card className="glass-card">
+      <Card className="glass-card rounded-2xl">
         <CardHeader className="card-header-spacing">
           <CardTitle className="text-sm font-medium text-sidebar-foreground flex items-center gap-2">
             <Lightbulb className="h-4 w-4 flex-shrink-0" />

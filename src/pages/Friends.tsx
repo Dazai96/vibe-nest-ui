@@ -97,7 +97,7 @@ export default function Friends() {
 
   return (
     <div className="min-h-screen bg-background pb-20 md:pb-8">
-      <div className="page-container-wide">
+      <div className="page-container">
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <div>
@@ -112,9 +112,9 @@ export default function Friends() {
           </Button>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-6">
+        <div className="grid lg:grid-cols-3 gap-4 md:gap-6">
           {/* Friends List */}
-          <div className="lg:col-span-1 space-y-6">
+          <div className="lg:col-span-1 space-y-4 md:space-y-6">
             {/* Search */}
             <div className="relative">
               <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
@@ -127,7 +127,7 @@ export default function Friends() {
             </div>
 
             {/* Active Friends */}
-            <Card className="p-4">
+            <Card className="p-3 md:p-4">
               <h3 className="font-semibold text-foreground mb-4">Your Friends</h3>
               <div className="space-y-3">
                 {filteredFriends.map((friend) => (
@@ -168,7 +168,7 @@ export default function Friends() {
             </Card>
 
             {/* Suggested Friends */}
-            <Card className="p-4">
+            <Card className="p-3 md:p-4">
               <h3 className="font-semibold text-foreground mb-4">Suggested Friends</h3>
               <div className="space-y-3">
                 {suggestedFriends.map((person) => (
@@ -193,11 +193,11 @@ export default function Friends() {
           </div>
 
           {/* Chat Area */}
-          <div className="lg:col-span-2 space-y-6">
+          <div className="lg:col-span-2 space-y-4 md:space-y-6">
             {selectedFriendData ? (
-              <Card className="p-0 h-[600px] flex flex-col">
+              <Card className="p-0 h-[65vh] md:h-[600px] flex flex-col">
                 {/* Chat Header */}
-                <div className="p-4 border-b border-border">
+                <div className="p-3 md:p-4 border-b border-border sticky top-0 bg-card z-10">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
                       <div className="relative">
@@ -221,7 +221,7 @@ export default function Friends() {
                 </div>
 
                 {/* Chat Messages */}
-                <div className="flex-1 p-4 space-y-4 overflow-y-auto">
+                <div className="flex-1 p-3 md:p-4 space-y-4 overflow-y-auto">
                   <div className="flex gap-3">
                     <Avatar className="w-8 h-8">
                       <AvatarImage src={selectedFriendData.avatar} alt={selectedFriendData.name} />
@@ -254,7 +254,7 @@ export default function Friends() {
                 </div>
 
                 {/* Chat Input */}
-                <div className="p-4 border-t border-border">
+                <div className="p-3 md:p-4 border-t border-border sticky bottom-0 bg-card">
                   <div className="flex items-center gap-2">
                     <Input
                       placeholder="Send a supportive message..."
@@ -273,7 +273,7 @@ export default function Friends() {
                 </div>
               </Card>
             ) : (
-              <Card className="p-8 text-center h-[600px] flex items-center justify-center">
+              <Card className="p-6 md:p-8 text-center h-[50vh] md:h-[600px] flex items-center justify-center">
                 <div>
                   <MessageCircle className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
                   <p className="text-muted-foreground">Select a friend to start chatting</p>
@@ -282,7 +282,7 @@ export default function Friends() {
             )}
 
             {/* Wellness Reminders */}
-            <Card className="p-4">
+            <Card className="p-3 md:p-4">
               <h3 className="font-semibold text-foreground mb-4 flex items-center gap-2">
                 <Heart className="h-5 w-5 text-accent" />
                 Wellness Check-ins

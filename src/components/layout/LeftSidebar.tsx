@@ -21,7 +21,7 @@ export function LeftSidebar() {
   return (
     <aside className="w-72 xl:w-80 bg-sidebar/95 backdrop-blur-md p-4 lg:p-6 space-y-6 overflow-y-auto">
       {/* Navigation */}
-      <Card className="glass-card">
+      <Card className="glass-card rounded-2xl">
         <CardHeader className="card-header-spacing">
           <CardTitle className="text-sm font-medium text-sidebar-foreground">Navigation</CardTitle>
         </CardHeader>
@@ -47,7 +47,7 @@ export function LeftSidebar() {
       </Card>
 
       {/* Mood Tracking Graph */}
-      <Card className="glass-card">
+      <Card className="glass-card rounded-2xl">
         <CardHeader className="card-header-spacing">
           <CardTitle className="text-sm font-medium text-sidebar-foreground flex items-center gap-2">
             <TrendingUp className="h-4 w-4 flex-shrink-0" />

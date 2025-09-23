@@ -31,7 +31,7 @@ export const Header = () => {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-white/70 dark:bg-black/30 backdrop-blur-md supports-[backdrop-filter]:bg-background/60">
-      <div className="container grid [grid-template-columns:auto_1fr_auto] items-center h-14 md:h-16 gap-3 px-4 md:px-6">
+      <div className="container grid [grid-template-columns:auto_1fr_auto] items-center h-14 md:h-16 gap-3 px-3 sm:px-4 md:px-6">
         {/* Logo & Brand */}
         <div className="flex items-center gap-2 md:gap-3 min-w-0 col-start-1 justify-start">
           <NavLink to="/" className="flex items-center" data-emoji-trigger>

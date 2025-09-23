@@ -70,7 +70,7 @@ export const PostCard = ({
   };
 
   return (
-    <motion.article whileHover={{ y: -2 }} transition={{ type: "spring", stiffness: 300, damping: 22, duration: 0.15 }} className="bg-card border border-border rounded-[var(--radius)] p-4 space-y-3 hover:shadow-[var(--shadow-card)] transition-shadow">
+    <motion.article whileHover={{ y: -2 }} transition={{ type: "spring", stiffness: 300, damping: 22, duration: 0.15 }} className="bg-card border border-border rounded-2xl md:rounded-3xl overflow-hidden p-4 space-y-3 hover:shadow-[var(--shadow-card)] transition-shadow">
       {/* Header */}
       <div className="flex items-start justify-between">
         <div className="flex items-center gap-3">

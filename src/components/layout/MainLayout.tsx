@@ -30,7 +30,7 @@ export function MainLayout({ children }: MainLayoutProps) {
         <motion.div className="flex-shrink-0" initial={{ opacity: 0, x: -12 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.25 }}>
           <LeftSidebar />
         </motion.div>
-        <motion.main className="flex-1 overflow-x-hidden" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.25 }}>
+        <motion.main className="flex-1 overflow-x-hidden will-change-transform" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.25 }}>
           {children}
         </motion.main>
         <motion.div className="flex-shrink-0" initial={{ opacity: 0, x: 12 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.25 }}>

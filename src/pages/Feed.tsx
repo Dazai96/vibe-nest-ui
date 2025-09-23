@@ -135,7 +135,7 @@ export default function Feed() {
             </div>
           ) : (
             samplePosts.map((post, idx) => (
-              <div key={post.id} className="glass-card rounded-2xl md:rounded-3xl overflow-hidden border border-white/10 dark:border-white/5">
+              <div key={post.id} className="glass-card rounded-2xl md:rounded-3xl overflow-hidden border border-white/10 dark:border-white/5 will-change-transform">
                 <PostCard {...post} />
               </div>
             ))

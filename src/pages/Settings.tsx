@@ -48,7 +48,7 @@ const settingSections = [
 export default function Settings() {
   const [activeSection, setActiveSection] = useState("account");
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const { theme, setTheme, colorTheme, setColorTheme, fontSize, setFontSize, highContrast, setHighContrast } = useTheme();
+  const { theme, setTheme, colorTheme, setColorTheme, fontSize, setFontSize, highContrast, setHighContrast, reducedMotion, setReducedMotion } = useTheme();
   const [settings, setSettings] = useState({
     anonymousPosting: false,
     journalPrivacy: true,
@@ -344,6 +344,16 @@ export default function Settings() {
               onCheckedChange={(checked) => updateSetting('voiceInteraction', checked)}
             />
           </div>
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="font-medium">Reduce Motion</p>
+              <p className="text-sm text-muted-foreground">Minimize animations and transitions</p>
+            </div>
+            <Switch 
+              checked={reducedMotion}
+              onCheckedChange={setReducedMotion}
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -351,6 +361,39 @@ export default function Settings() {
 
   const renderControlsSection = () => (
     <div className="space-y-6">
+      <div>
+        <h3 className="text-lg font-semibold mb-4">Wellbeing</h3>
+        <div className="space-y-4">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="font-medium">Quiet Hours</p>
+              <p className="text-sm text-muted-foreground">Silence notifications at night</p>
+            </div>
+            <Switch />
+          </div>
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="font-medium">Daily Wellness Tips</p>
+              <p className="text-sm text-muted-foreground">Show tips of the day in sidebar</p>
+            </div>
+            <Switch defaultChecked />
+          </div>
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="font-medium">Auto‑save Drafts</p>
+              <p className="text-sm text-muted-foreground">Prevent losing in‑progress posts</p>
+            </div>
+            <Switch defaultChecked />
+          </div>
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="font-medium">Soft Sound Effects</p>
+              <p className="text-sm text-muted-foreground">Play subtle sounds for key actions</p>
+            </div>
+            <Switch />
+          </div>
+        </div>
+      </div>
       <div>
         <h3 className="text-lg font-semibold mb-4">Notification Controls</h3>
         <div className="space-y-4">

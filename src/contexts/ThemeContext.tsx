@@ -9,6 +9,8 @@ interface ThemeContextType {
   setFontSize: (size: "small" | "medium" | "large") => void;
   highContrast: boolean;
   setHighContrast: (enabled: boolean) => void;
+  reducedMotion: boolean;
+  setReducedMotion: (enabled: boolean) => void;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
@@ -26,6 +28,7 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
   const [colorTheme, setColorTheme] = useState<"teal" | "blue" | "purple" | "neutral" | "lavender" | "mint" | "peach" | "sky" | "pink">("teal");
   const [fontSize, setFontSize] = useState<"small" | "medium" | "large">("medium");
   const [highContrast, setHighContrast] = useState(false);
+  const [reducedMotion, setReducedMotion] = useState(false);
 
   useEffect(() => {
     const root = window.document.documentElement;
@@ -50,7 +53,10 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
       root.style.setProperty("--foreground", theme === "dark" ? "0 0% 100%" : "0 0% 0%");
       root.style.setProperty("--background", theme === "dark" ? "0 0% 0%" : "0 0% 100%");
     }
-  }, [theme, colorTheme, fontSize, highContrast]);
+
+    // Apply reduced motion class
+    root.classList.toggle("reduce-motion", reducedMotion);
+  }, [theme, colorTheme, fontSize, highContrast, reducedMotion]);
 
   return (
     <ThemeContext.Provider
@@ -63,6 +69,8 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
         setFontSize,
         highContrast,
         setHighContrast,
+        reducedMotion,
+        setReducedMotion,
       }}
     >
       {children}

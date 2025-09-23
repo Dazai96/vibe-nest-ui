@@ -31,17 +31,22 @@ export const Header = () => {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-white/70 dark:bg-black/30 backdrop-blur-md supports-[backdrop-filter]:bg-background/60">
-      <div className="container grid [grid-template-columns:auto_1fr_auto] items-center h-14 md:h-16 gap-3 px-3 sm:px-4 md:px-6">
+      <div className="w-full grid [grid-template-columns:auto_1fr_auto] items-center h-14 md:h-16 gap-3 px-4 sm:px-6 lg:px-8 xl:px-10">
         {/* Logo & Brand */}
-        <div className="flex items-center gap-2 md:gap-3 min-w-0 col-start-1 justify-start">
+        <div className="flex items-center gap-3 md:gap-4 min-w-0 col-start-1 justify-start">
           <NavLink to="/" className="flex items-center" data-emoji-trigger>
+            <svg className="mr-2 hidden sm:block logo-breath" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <circle className="logo-breath-ring" cx="12" cy="12" r="5" />
+              <circle className="logo-breath-ring" cx="12" cy="12" r="8" />
+              <circle className="logo-breath-ring" cx="12" cy="12" r="11" />
+            </svg>
             <span className="font-bold tracking-tight text-2xl md:text-3xl text-foreground transition-transform duration-150 will-change-transform hover:-translate-y-0.5 active:translate-y-0">VibeNest</span>
           </NavLink>
 
           {/* Home selector */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="outline" size="sm" className="hidden md:inline-flex h-9 rounded-full px-3 gap-2">
+              <Button variant="outline" size="sm" className="hidden md:inline-flex h-9 rounded-full px-3 gap-2 ml-2 md:ml-3">
                 <Home className="h-4 w-4" />
                 <span className="text-sm">Home</span>
                 <ChevronDown className="h-4 w-4" />
@@ -62,7 +67,7 @@ export const Header = () => {
 
         {/* Search Bar - Hidden on Mobile */}
         <div className="hidden md:flex col-start-2 justify-center">
-          <div className="relative w-full max-w-lg mx-auto">
+          <div className="relative w-full max-w-2xl mx-auto">
             <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             <Input
               placeholder="Search posts, questions, resources..."

@@ -44,7 +44,7 @@ const AIChatbot: React.FC<AIChatbotProps> = ({ isOpen, onClose }) => {
   }, [messages]);
 
   const sendMessage = async () => {
-    if (!input.trim() || !canUseAIChat || !genAI) return;
+    if (!input.trim()) return;
 
     const userMessage: Message = {
       id: Date.now().toString(),
@@ -58,7 +58,29 @@ const AIChatbot: React.FC<AIChatbotProps> = ({ isOpen, onClose }) => {
     setIsLoading(true);
 
     try {
-      const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
+      if (!canUseAIChat) {
+        const infoMessage: Message = {
+          id: (Date.now() + 1).toString(),
+          content: "AI chat is currently disabled for your plan.",
+          isUser: false,
+          timestamp: new Date(),
+        };
+        setMessages(prev => [...prev, infoMessage]);
+        return;
+      }
+
+      if (!genAI) {
+        const setupMessage: Message = {
+          id: (Date.now() + 1).toString(),
+          content: "AI is not configured. Add VITE_GEMINI_API_KEY to your .env and reload.",
+          isUser: false,
+          timestamp: new Date(),
+        };
+        setMessages(prev => [...prev, setupMessage]);
+        return;
+      }
+
+      const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
       const prompt = `You are a supportive AI mental health assistant for students. Be empathetic, encouraging, and provide helpful advice while reminding users to seek professional help when needed. Keep responses concise and supportive. User message: ${userMessage.content}`;
       
       const result = await model.generateContent(prompt);
@@ -87,7 +109,7 @@ const AIChatbot: React.FC<AIChatbotProps> = ({ isOpen, onClose }) => {
     }
   };
 
-  const handleKeyPress = (e: React.KeyboardEvent) => {
+  const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       sendMessage();
@@ -204,7 +226,7 @@ const AIChatbot: React.FC<AIChatbotProps> = ({ isOpen, onClose }) => {
                 <Input
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
-                  onKeyPress={handleKeyPress}
+                  onKeyDown={handleKeyDown}
                   placeholder="Type your message... (Demo Mode)"
                   disabled={isLoading}
                   className="flex-1"

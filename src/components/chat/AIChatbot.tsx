@@ -161,8 +161,8 @@ const AIChatbot: React.FC<AIChatbotProps> = ({ isOpen, onClose }) => {
             </div>
           </CardHeader>
 
-          <CardContent className="flex-1 flex flex-col p-0">
-            <ScrollArea ref={scrollAreaRef} className="flex-1 p-4">
+          <CardContent className="flex-1 flex flex-col p-0 min-h-0">
+            <ScrollArea ref={scrollAreaRef} className="flex-1 p-4 h-full">
               <div className="space-y-4">
                 {messages.length === 0 && (
                   <motion.div
@@ -194,7 +194,7 @@ const AIChatbot: React.FC<AIChatbotProps> = ({ isOpen, onClose }) => {
                             : 'bg-muted text-foreground'
                         }`}
                       >
-                        <p className="text-sm whitespace-pre-wrap">{message.content}</p>
+                        <p className="text-sm whitespace-pre-wrap break-words">{message.content}</p>
                         <p className="text-xs opacity-70 mt-1">
                           {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                         </p>

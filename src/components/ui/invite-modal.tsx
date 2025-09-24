@@ -18,7 +18,7 @@ export function InviteModal({ open, onOpenChange }: InviteModalProps) {
   const [isSending, setIsSending] = useState(false);
   const { toast } = useToast();
 
-  const inviteLink = "https://vibenest.app/invite/abc123";
+  const inviteLink = "https://vibenest-aurora.vercel.app/";
 
   const copyToClipboard = async (text: string) => {
     try {

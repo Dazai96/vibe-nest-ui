@@ -40,7 +40,7 @@ export function MainLayout({ children }: MainLayoutProps) {
 
       {/* Mobile Layout */}
       <div className="lg:hidden">
-        <motion.main className="min-h-[calc(100vh-8rem)] px-3 pb-20" initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.2 }}>
+        <motion.main className="min-h-[calc(100vh-8rem)] px-4 pb-[calc(env(safe-area-inset-bottom)+88px)] pt-2" initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.2 }}>
           {children}
         </motion.main>
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.2, delay: 0.05 }}>

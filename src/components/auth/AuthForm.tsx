@@ -19,7 +19,7 @@ export const AuthForm = () => {
     confirmPassword: ''
   });
   
-  const { signIn, signUp, signInWithGoogle, signInWithFacebook } = useAuth();
+  const { signIn, signUp, signInWithEmailLink, signInWithGoogle, signInWithFacebook } = useAuth();
   const { toast } = useToast();
   const navigate = useNavigate();
 
@@ -52,6 +52,21 @@ export const AuthForm = () => {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleMagicLink = async () => {
+    if (!formData.email) {
+      toast({ title: 'Email required', description: 'Enter your email first.' });
+      return;
+    }
+    setIsLoading(true);
+    const { error } = await signInWithEmailLink(formData.email);
+    if (error) {
+      toast({ title: 'Could not send link', description: error.message, variant: 'destructive' });
+    } else {
+      toast({ title: 'Check your email', description: 'We sent you a login link.' });
+    }
+    setIsLoading(false);
   };
 
   const handleSignUp = async (e: React.FormEvent) => {
@@ -256,6 +271,9 @@ export const AuthForm = () => {
 
                   <Button type="submit" className="w-full" disabled={isLoading}>
                     {isLoading ? 'Signing in...' : 'Sign In'}
+                  </Button>
+                  <Button type="button" variant="ghost" className="w-full" onClick={handleMagicLink} disabled={isLoading}>
+                    Send magic link to email
                   </Button>
                 </form>
               </TabsContent>

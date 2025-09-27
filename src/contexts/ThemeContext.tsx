@@ -24,11 +24,77 @@ export const useTheme = () => {
 };
 
 export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
-  const [theme, setTheme] = useState<"light" | "dark">("light");
-  const [colorTheme, setColorTheme] = useState<"teal" | "blue" | "purple" | "neutral" | "lavender" | "mint" | "peach" | "sky" | "pink">("teal");
-  const [fontSize, setFontSize] = useState<"small" | "medium" | "large">("medium");
-  const [highContrast, setHighContrast] = useState(false);
-  const [reducedMotion, setReducedMotion] = useState(false);
+  // Load theme preferences from localStorage or use defaults
+  const [theme, setTheme] = useState<"light" | "dark">(() => {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("vibenest-theme");
+      return (saved as "light" | "dark") || "dark";
+    }
+    return "dark";
+  });
+  
+  const [colorTheme, setColorTheme] = useState<"teal" | "blue" | "purple" | "neutral" | "lavender" | "mint" | "peach" | "sky" | "pink">(() => {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("vibenest-color-theme");
+      return (saved as any) || "mint";
+    }
+    return "mint";
+  });
+  
+  const [fontSize, setFontSize] = useState<"small" | "medium" | "large">(() => {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("vibenest-font-size");
+      return (saved as "small" | "medium" | "large") || "medium";
+    }
+    return "medium";
+  });
+  
+  const [highContrast, setHighContrast] = useState(() => {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("vibenest-high-contrast");
+      return saved === "true" || false;
+    }
+    return false;
+  });
+  
+  const [reducedMotion, setReducedMotion] = useState(() => {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("vibenest-reduced-motion");
+      return saved === "true" || false;
+    }
+    return false;
+  });
+
+  // Save preferences to localStorage
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem("vibenest-theme", theme);
+    }
+  }, [theme]);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem("vibenest-color-theme", colorTheme);
+    }
+  }, [colorTheme]);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem("vibenest-font-size", fontSize);
+    }
+  }, [fontSize]);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem("vibenest-high-contrast", highContrast.toString());
+    }
+  }, [highContrast]);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem("vibenest-reduced-motion", reducedMotion.toString());
+    }
+  }, [reducedMotion]);
 
   useEffect(() => {
     const root = window.document.documentElement;
@@ -41,9 +107,8 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
       root.classList.add("dark");
     }
     
-    if (colorTheme !== "teal") {
-      root.classList.add(`theme-${colorTheme}`);
-    }
+    // Apply color theme (mint is default, so always apply it)
+    root.classList.add(`theme-${colorTheme}`);
 
     // Apply font size
     root.style.fontSize = fontSize === "small" ? "14px" : fontSize === "large" ? "18px" : "16px";

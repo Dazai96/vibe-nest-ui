@@ -26,58 +26,58 @@ const insights = [
 
 export default function Mood() {
   return (
-    <div className="min-h-screen bg-background pb-20 md:pb-8">
+    <div className="min-h-screen bg-background pb-20 lg:pb-8">
       <div className="page-container-narrow">
         {/* Header */}
-        <div className="mb-6">
-          <h1 className="text-2xl font-bold text-foreground mb-2">Mood Tracking</h1>
-          <p className="text-muted-foreground">
+        <div className="mb-4 sm:mb-6">
+          <h1 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Mood Tracking</h1>
+          <p className="text-sm sm:text-base text-muted-foreground">
             Track your daily emotions to better understand your mental wellbeing
           </p>
         </div>
 
         {/* Today's Mood Tracker */}
-        <div className="mb-6">
+        <div className="mb-4 sm:mb-6">
           <MoodTracker />
         </div>
 
         {/* Mood History */}
-        <Card className="p-6 mb-6">
-          <div className="flex items-center gap-2 mb-4">
-            <CalendarDays className="h-5 w-5 text-primary" />
-            <h2 className="text-lg font-semibold text-foreground">Recent Mood History</h2>
+        <Card className="p-4 sm:p-6 mb-4 sm:mb-6">
+          <div className="flex items-center gap-2 mb-3 sm:mb-4">
+            <CalendarDays className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
+            <h2 className="text-base sm:text-lg font-semibold text-foreground">Recent Mood History</h2>
           </div>
           
-          <div className="space-y-3">
+          <div className="space-y-2 sm:space-y-3">
             {moodHistory.map((entry, index) => (
               <div key={index} className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className={`w-4 h-4 rounded-full ${entry.color}`}></div>
-                  <span className="text-sm font-medium text-foreground">{entry.date}</span>
+                <div className="flex items-center gap-2 sm:gap-3">
+                  <div className={`w-3 h-3 sm:w-4 sm:h-4 rounded-full ${entry.color}`}></div>
+                  <span className="text-xs sm:text-sm font-medium text-foreground">{entry.date}</span>
                 </div>
-                <span className="text-sm text-muted-foreground">{entry.mood}</span>
+                <span className="text-xs sm:text-sm text-muted-foreground">{entry.mood}</span>
               </div>
             ))}
           </div>
           
-          <Button variant="outline" className="w-full mt-4">
+          <Button variant="outline" className="w-full mt-3 sm:mt-4 touch-target min-h-[44px]">
             View Full History
           </Button>
         </Card>
 
         {/* Insights */}
-        <div className="space-y-4">
+        <div className="space-y-3 sm:space-y-4">
           {insights.map((insight, index) => (
-            <Card key={index} className="p-6">
-              <div className="flex items-start gap-4">
+            <Card key={index} className="p-4 sm:p-6">
+              <div className="flex items-start gap-3 sm:gap-4">
                 <div className="flex-shrink-0">
-                  <div className="w-10 h-10 rounded-xl bg-[hsl(var(--primary-soft))] flex items-center justify-center">
-                    <insight.icon className="h-5 w-5 text-primary" />
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-[hsl(var(--primary-soft))] flex items-center justify-center">
+                    <insight.icon className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
                   </div>
                 </div>
-                <div className="flex-1">
-                  <h3 className="font-semibold text-foreground mb-2">{insight.title}</h3>
-                  <p className="text-sm text-muted-foreground">{insight.description}</p>
+                <div className="flex-1 min-w-0">
+                  <h3 className="font-semibold text-foreground mb-1 sm:mb-2 text-sm sm:text-base">{insight.title}</h3>
+                  <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">{insight.description}</p>
                 </div>
               </div>
             </Card>
@@ -85,16 +85,16 @@ export default function Mood() {
         </div>
 
         {/* Quick Actions */}
-        <Card className="p-6 mt-6">
-          <h3 className="font-semibold text-foreground mb-4">Quick Actions</h3>
-          <div className="grid grid-cols-2 gap-3">
-            <Button variant="outline" className="h-auto p-4 flex-col gap-2">
-              <BookOpen className="h-5 w-5" />
-              <span className="text-sm">Journal Entry</span>
+        <Card className="p-4 sm:p-6 mt-4 sm:mt-6">
+          <h3 className="font-semibold text-foreground mb-3 sm:mb-4 text-sm sm:text-base">Quick Actions</h3>
+          <div className="grid grid-cols-2 gap-2 sm:gap-3">
+            <Button variant="outline" className="h-auto p-3 sm:p-4 flex-col gap-2 touch-target min-h-[60px]">
+              <BookOpen className="h-4 w-4 sm:h-5 sm:w-5" />
+              <span className="text-xs sm:text-sm">Journal Entry</span>
             </Button>
-            <Button variant="outline" className="h-auto p-4 flex-col gap-2">
-              <TrendingUp className="h-5 w-5" />
-              <span className="text-sm">View Insights</span>
+            <Button variant="outline" className="h-auto p-3 sm:p-4 flex-col gap-2 touch-target min-h-[60px]">
+              <TrendingUp className="h-4 w-4 sm:h-5 sm:w-5" />
+              <span className="text-xs sm:text-sm">View Insights</span>
             </Button>
           </div>
         </Card>

@@ -19,7 +19,7 @@ const moodData = dataRandomizer.getRandomMoodData();
 
 export function LeftSidebar() {
   return (
-    <aside className="w-72 xl:w-80 bg-sidebar/95 backdrop-blur-md p-4 lg:p-6 space-y-6 overflow-y-auto">
+    <aside className="w-64 lg:w-72 xl:w-80 bg-sidebar/95 backdrop-blur-md p-3 lg:p-4 xl:p-6 space-y-4 lg:space-y-6 overflow-y-auto">
       {/* Navigation */}
       <Card className="glass-card rounded-2xl">
         <CardHeader className="card-header-spacing">

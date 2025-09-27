@@ -72,42 +72,44 @@ export default function Communities() {
   });
 
   return (
-    <div className="min-h-screen bg-background pb-20 md:pb-8">
+    <div className="min-h-screen bg-background pb-20 lg:pb-8">
       <div className="page-container max-w-4xl">
         {/* Header */}
-        <div className="flex items-center justify-between mb-6">
-          <div>
-            <h1 className="text-2xl font-bold text-foreground mb-2">Communities</h1>
-            <p className="text-muted-foreground">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4 sm:mb-6">
+          <div className="min-w-0 flex-1">
+            <h1 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Communities</h1>
+            <p className="text-sm sm:text-base text-muted-foreground">
               Join supportive communities and connect with peers who understand
             </p>
           </div>
-          <Button className="bg-primary hover:bg-[hsl(var(--primary-hover))] text-primary-foreground">
+          <Button className="bg-primary hover:bg-[hsl(var(--primary-hover))] text-primary-foreground touch-target min-h-[44px] w-full sm:w-auto">
             <Plus className="h-4 w-4 mr-2" />
             Create
           </Button>
         </div>
 
         {/* Search */}
-        <div className="relative mb-6">
+        <div className="relative mb-4 sm:mb-6">
           <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <Input
             placeholder="Search communities..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-10 bg-muted border-0 focus-visible:ring-2 focus-visible:ring-ring"
+            className="pl-10 bg-muted border-0 focus-visible:ring-2 focus-visible:ring-ring touch-target min-h-[44px]"
           />
         </div>
 
         {/* Category Filter */}
-        <div className="flex flex-wrap gap-2 mb-6">
+        <div className="flex flex-wrap gap-2 mb-4 sm:mb-6">
           {categories.map((category) => (
             <Button
               key={category}
               variant={selectedCategory === category ? "secondary" : "outline"}
               size="sm"
               onClick={() => setSelectedCategory(category)}
-              className={selectedCategory === category ? "bg-primary text-primary-foreground" : ""}
+              className={`touch-target min-h-[44px] ${
+                selectedCategory === category ? "bg-primary text-primary-foreground" : ""
+              }`}
             >
               {category}
             </Button>
@@ -115,58 +117,58 @@ export default function Communities() {
         </div>
 
         {/* Communities Grid */}
-        <div className="grid gap-6 md:grid-cols-2">
+        <div className="grid gap-4 sm:gap-6 grid-cols-1 lg:grid-cols-2">
           {filteredCommunities.map((community) => (
-            <Card key={community.id} className="p-6 hover:shadow-[var(--shadow-card)] transition-shadow">
-              <div className="space-y-4">
+            <Card key={community.id} className="p-4 sm:p-6 hover:shadow-[var(--shadow-card)] transition-shadow">
+              <div className="space-y-3 sm:space-y-4">
                 {/* Header */}
-                <div className="flex items-start justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-xl bg-primary flex items-center justify-center">
-                      <Users className="h-6 w-6 text-primary-foreground" />
+                <div className="flex items-start justify-between gap-3">
+                  <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-primary flex items-center justify-center flex-shrink-0">
+                      <Users className="h-5 w-5 sm:h-6 sm:w-6 text-primary-foreground" />
                     </div>
-                    <div>
-                      <h3 className="font-semibold text-foreground">{community.name}</h3>
+                    <div className="min-w-0 flex-1">
+                      <h3 className="font-semibold text-foreground text-sm sm:text-base truncate">{community.name}</h3>
                       <Badge variant="outline" className="text-xs mt-1">
                         {community.category}
                       </Badge>
                     </div>
                   </div>
                   {community.isJoined && (
-                    <Badge className="bg-[hsl(var(--accent-soft))] text-accent border-accent">
+                    <Badge className="bg-[hsl(var(--accent-soft))] text-accent border-accent flex-shrink-0">
                       Joined
                     </Badge>
                   )}
                 </div>
 
                 {/* Description */}
-                <p className="text-sm text-muted-foreground leading-relaxed">
+                <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">
                   {community.description}
                 </p>
 
                 {/* Stats */}
-                <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                <div className="flex items-center gap-3 sm:gap-4 text-xs sm:text-sm text-muted-foreground">
                   <div className="flex items-center gap-1">
-                    <Users className="h-4 w-4" />
+                    <Users className="h-3 w-3 sm:h-4 sm:w-4" />
                     <span>{community.members.toLocaleString()}</span>
                   </div>
                   <div className="flex items-center gap-1">
-                    <MessageCircle className="h-4 w-4" />
+                    <MessageCircle className="h-3 w-3 sm:h-4 sm:w-4" />
                     <span>{community.posts}</span>
                   </div>
                 </div>
 
                 {/* Moderators */}
                 <div className="flex items-center gap-2">
-                  <Crown className="h-4 w-4 text-muted-foreground" />
-                  <span className="text-xs text-muted-foreground">
+                  <Crown className="h-3 w-3 sm:h-4 sm:w-4 text-muted-foreground flex-shrink-0" />
+                  <span className="text-xs text-muted-foreground truncate">
                     Moderated by {community.moderators.join(", ")}
                   </span>
                 </div>
 
                 {/* Action Button */}
                 <Button
-                  className={`w-full ${
+                  className={`w-full touch-target min-h-[44px] ${
                     community.isJoined
                       ? "bg-muted text-muted-foreground hover:bg-[hsl(var(--muted-dark))]"
                       : "bg-primary hover:bg-[hsl(var(--primary-hover))] text-primary-foreground"
@@ -180,14 +182,15 @@ export default function Communities() {
         </div>
 
         {filteredCommunities.length === 0 && (
-          <Card className="p-8 text-center">
-            <p className="text-muted-foreground mb-4">No communities found matching your criteria.</p>
+          <Card className="p-6 sm:p-8 text-center">
+            <p className="text-sm sm:text-base text-muted-foreground mb-4">No communities found matching your criteria.</p>
             <Button
               variant="outline"
               onClick={() => {
                 setSearchQuery("");
                 setSelectedCategory("All");
               }}
+              className="touch-target min-h-[44px]"
             >
               Clear Filters
             </Button>

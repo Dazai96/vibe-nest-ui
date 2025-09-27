@@ -26,7 +26,7 @@ export function MainLayout({ children }: MainLayoutProps) {
       <Header />
       
       {/* Desktop Layout with Sidebars */}
-      <div className="hidden lg:flex min-h-[calc(100vh-4rem)]">
+      <div className="hidden xl:flex min-h-[calc(100vh-4rem)]">
         <motion.div className="flex-shrink-0" initial={{ opacity: 0, x: -12 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.25 }}>
           <LeftSidebar />
         </motion.div>
@@ -38,9 +38,19 @@ export function MainLayout({ children }: MainLayoutProps) {
         </motion.div>
       </div>
 
+      {/* Tablet Layout with Left Sidebar Only */}
+      <div className="hidden lg:flex xl:hidden min-h-[calc(100vh-4rem)]">
+        <motion.div className="flex-shrink-0" initial={{ opacity: 0, x: -12 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.25 }}>
+          <LeftSidebar />
+        </motion.div>
+        <motion.main className="flex-1 overflow-x-hidden will-change-transform" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.25 }}>
+          {children}
+        </motion.main>
+      </div>
+
       {/* Mobile Layout */}
       <div className="lg:hidden">
-        <motion.main className="min-h-[calc(100vh-8rem)] px-4 pb-[calc(env(safe-area-inset-bottom)+88px)] pt-2" initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.2 }}>
+        <motion.main className="min-h-[calc(100vh-8rem)] px-3 sm:px-4 pb-[calc(env(safe-area-inset-bottom)+88px)] pt-2" initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.2 }}>
           {children}
         </motion.main>
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.2, delay: 0.05 }}>

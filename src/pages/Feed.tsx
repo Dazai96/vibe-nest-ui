@@ -80,16 +80,16 @@ export default function Feed() {
   };
 
   return (
-    <div className="min-h-screen bg-background pb-20 md:pb-8">
+    <div className="min-h-screen bg-background pb-20 lg:pb-8">
       <div className="page-container-narrow">
         {/* Mood Tracker */}
-        <div className="mb-6">
+        <div className="mb-4 sm:mb-6">
           <MoodTracker />
         </div>
 
         {/* Feed Tabs */}
-        <div className="flex items-center justify-between mb-6">
-          <div className="flex border border-border/30 rounded-[var(--radius-sm)] bg-card/50 backdrop-blur-sm p-1 shadow-sm">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4 sm:mb-6">
+          <div className="flex border border-border/30 rounded-[var(--radius-sm)] bg-card/50 backdrop-blur-sm p-1 shadow-sm w-full sm:w-auto">
             {tabs.map((tab) => {
               const Icon = tab.icon;
               return (
@@ -98,14 +98,14 @@ export default function Feed() {
                   variant={activeTab === tab.id ? "secondary" : "ghost"}
                   size="sm"
                   onClick={() => setActiveTab(tab.id)}
-                  className={`rounded-[var(--radius-sm)] transition-all duration-200 ${
+                  className={`flex-1 sm:flex-none rounded-[var(--radius-sm)] transition-all duration-200 touch-target min-h-[44px] ${
                     activeTab === tab.id 
                       ? "bg-background text-foreground shadow-sm border border-border/50" 
                       : "text-muted-foreground hover:text-foreground hover:bg-background/50"
                   }`}
                 >
-                  <Icon className="h-4 w-4 mr-2" />
-                  {tab.label}
+                  <Icon className="h-4 w-4 mr-1 sm:mr-2" />
+                  <span className="text-sm sm:text-base">{tab.label}</span>
                 </Button>
               );
             })}
@@ -113,29 +113,29 @@ export default function Feed() {
 
           <Button
             size="sm"
-            className="md:hidden bg-primary hover:bg-[hsl(var(--primary-hover))] text-primary-foreground rounded-[var(--radius-sm)]"
+            className="w-full sm:w-auto bg-primary hover:bg-[hsl(var(--primary-hover))] text-primary-foreground rounded-[var(--radius-sm)] touch-target min-h-[44px]"
           >
             <Plus className="h-4 w-4 mr-2" />
-            Post
+            <span className="text-sm sm:text-base">Post</span>
           </Button>
         </div>
 
         {/* Posts Feed */}
-        <div className="space-y-4">
+        <div className="space-y-3 sm:space-y-4">
           {isLoading ? (
-            <div className="space-y-6">
+            <div className="space-y-4 sm:space-y-6">
               {/* Loading skeletons */}
               {Array.from({ length: 3 }).map((_, i) => (
                 <PostCardSkeleton key={i} />
               ))}
               {/* Silly fact during loading */}
-              <div className="flex justify-center py-8">
+              <div className="flex justify-center py-6 sm:py-8">
                 <SillyFactLoader />
               </div>
             </div>
           ) : (
             samplePosts.map((post, idx) => (
-              <div key={post.id} className="glass-card rounded-2xl md:rounded-3xl overflow-hidden border border-white/10 dark:border-white/5 will-change-transform">
+              <div key={post.id} className="glass-card rounded-xl sm:rounded-2xl md:rounded-3xl overflow-hidden border border-white/10 dark:border-white/5 will-change-transform">
                 <PostCard {...post} />
               </div>
             ))
@@ -143,20 +143,20 @@ export default function Feed() {
         </div>
 
         {/* Load More */}
-        <div className="mt-8 text-center">
+        <div className="mt-6 sm:mt-8 text-center">
           <Button 
             variant="outline" 
-            className="w-full md:w-auto glass-button"
+            className="w-full sm:w-auto glass-button touch-target min-h-[44px]"
             onClick={handleLoadMore}
             disabled={isLoadingMore}
           >
             {isLoadingMore ? (
               <>
                 <LoadingSpinner size="sm" />
-                <span className="ml-2">Loading more posts...</span>
+                <span className="ml-2 text-sm sm:text-base">Loading more posts...</span>
               </>
             ) : (
-              "Load More Posts"
+              <span className="text-sm sm:text-base">Load More Posts</span>
             )}
           </Button>
         </div>
